@@ -249,6 +249,15 @@ table {
     transform: rotate(var(--angle)) translateX(-500px);
     opacity: 0;
     }
+  }
+  --animate-shiny-text: shiny-text 8s infinite;
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;
+    }
   }}
 
 .dark {
@@ -295,4 +304,8 @@ table {
   html {
     @apply font-sans;
   }
+}
+  ::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }

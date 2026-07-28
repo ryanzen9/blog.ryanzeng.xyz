@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/theme-provider";
+import { BlurFade } from "@/components/ui/blur-fade";
 import { Meteors } from "@/components/ui/meteors";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/react";
@@ -17,16 +18,16 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Next.js Portfolio Starter",
-    template: "%s | Next.js Portfolio Starter",
+    default: "May Rain",
+    template: "%s | May Rain",
   },
-  description: "This is my portfolio.",
+  description: "There's no reason for it, you've gotta go sometime.",
   openGraph: {
-    title: "My Portfolio",
-    description: "This is my portfolio.",
+    title: "May Rain",
+    description: "There's no reason for it, you've gotta go sometime.",
     url: baseUrl,
-    siteName: "My Portfolio",
-    locale: "en_US",
+    siteName: "May Rain",
+    locale: "zh-Hans",
     type: "website",
   },
   robots: {
@@ -41,8 +42,6 @@ export const metadata: Metadata = {
     },
   },
 };
-
-const cx = (...classes) => classes.filter(Boolean).join(" ");
 
 export default function RootLayout({
   children,
@@ -70,9 +69,15 @@ export default function RootLayout({
           <Meteors number={30} />
 
           <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-            <Navbar />
-            {children}
-            <Footer />
+            <BlurFade delay={0.25 * 1} inView>
+              <Navbar />
+            </BlurFade>
+            <BlurFade delay={0.25 * 2} inView>
+              {children}
+            </BlurFade>
+            <BlurFade delay={0.25 * 3} inView>
+              <Footer />
+            </BlurFade>
             <Analytics />
             <SpeedInsights />
           </main>

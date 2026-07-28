@@ -1,26 +1,60 @@
-import Link from 'next/link'
+"use client";
+
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const navItems = {
-  '/': {
-    name: 'home',
+  "/": {
+    name: "home",
   },
-  '/blog': {
-    name: 'blog',
+  "/blog": {
+    name: "blog",
   },
-  'https://vercel.com/templates/next.js/portfolio-starter-kit': {
-    name: 'deploy',
-  },
+};
+
+const themeButtonClassName = cn(
+  buttonVariants({ variant: "ghost", size: "icon-sm" }),
+  "ml-auto",
+);
+
+function ThemeToggleButton() {
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <span aria-hidden="true" className={themeButtonClassName} />;
+  }
+
+  const isDark = resolvedTheme === "dark";
+
+  return (
+    <AnimatedThemeToggler
+      theme={isDark ? "dark" : "light"}
+      onThemeChange={setTheme}
+      aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
+      title={`Switch to ${isDark ? "light" : "dark"} theme`}
+      className={themeButtonClassName}
+    />
+  );
 }
 
 export function Navbar() {
   return (
-    <aside className="-ml-[8px] mb-16 tracking-tight">
+    <aside className="-ml-2 mb-16 tracking-tight">
       <div className="lg:sticky lg:top-20">
         <nav
-          className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
+          className="fade relative flex w-full flex-row items-center px-0 pb-0 md:relative md:overflow-auto"
           id="nav"
         >
-          <div className="flex flex-row space-x-0 pr-10">
+          <div className="flex min-w-0 flex-row items-center">
             {Object.entries(navItems).map(([path, { name }]) => {
               return (
                 <Link
@@ -30,11 +64,12 @@ export function Navbar() {
                 >
                   {name}
                 </Link>
-              )
+              );
             })}
           </div>
+          <ThemeToggleButton />
         </nav>
       </div>
     </aside>
-  )
+  );
 }
