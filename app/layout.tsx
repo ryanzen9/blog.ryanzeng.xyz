@@ -4,16 +4,12 @@ import { Meteors } from "@/components/ui/meteors";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import Footer from "./components/footer";
 import { Navbar } from "./components/nav";
+import { codeFont, proseFont, uiFont } from "./fonts";
 import "./global.css";
 import { baseUrl } from "./sitemap";
-
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -22,6 +18,10 @@ export const metadata: Metadata = {
     template: "%s | May Rain",
   },
   description: "There's no reason for it, you've gotta go sometime.",
+  icons: {
+    icon: "/images/logo.jpg",
+    apple: "/images/logo.jpg",
+  },
   openGraph: {
     title: "May Rain",
     description: "There's no reason for it, you've gotta go sometime.",
@@ -50,16 +50,16 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
-      suppressHydrationWarning
+      lang="zh-Hans"
       className={cn(
-        GeistSans.variable,
-        GeistMono.variable,
+        uiFont.variable,
+        codeFont.variable,
+        proseFont.variable,
         "font-sans",
-        geist.variable,
       )}
+      suppressHydrationWarning
     >
-      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
+      <body className="antialiased max-w-2xl mx-4 mt-8 lg:mx-auto">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -80,6 +80,10 @@ importers:
       typescript:
         specifier: ^5
         version: 5.3.3
+    devDependencies:
+      baseline-browser-mapping:
+        specifier: ^2.11.5
+        version: 2.11.5
 
 packages:
 
