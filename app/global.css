@@ -69,6 +69,12 @@ html {
   min-width: 360px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 .prose .anchor {
   @apply absolute invisible no-underline;
 
@@ -152,6 +158,7 @@ html {
 .prose h5,
 .prose h6 {
   @apply font-heading;
+  scroll-margin-top: 2rem;
 }
 
 .prose strong {

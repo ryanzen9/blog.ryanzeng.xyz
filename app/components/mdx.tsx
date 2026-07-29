@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { MDXRemote } from 'next-mdx-remote/rsc'
+import { compileMDX } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React from 'react'
+import {
+  createRemarkHeadings,
+  type TocItem,
+} from 'app/blog/toc'
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -53,30 +57,19 @@ function Code({ children, ...props }) {
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
 
-function slugify(str) {
-  return str
-    .toString()
-    .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
-}
-
 function createHeading(level) {
-  const Heading = ({ children }) => {
-    let slug = slugify(children)
+  const Heading = ({ children, id, ...props }) => {
     return React.createElement(
       `h${level}`,
-      { id: slug },
-      [
-        React.createElement('a', {
-          href: `#${slug}`,
-          key: `link-${slug}`,
-          className: 'anchor',
-        }),
-      ],
+      { id, ...props },
+      id
+        ? React.createElement('a', {
+            href: `#${id}`,
+            key: `link-${id}`,
+            className: 'anchor',
+            'aria-label': `跳转到 ${id}`,
+          })
+        : null,
       children
     )
   }
@@ -99,11 +92,23 @@ let components = {
   Table,
 }
 
-export function CustomMDX(props) {
-  return (
-    <MDXRemote
-      {...props}
-      components={{ ...components, ...(props.components || {}) }}
-    />
-  )
+export async function compilePostMDX(source, customComponents = {}) {
+  const toc: TocItem[] = []
+  const { content } = await compileMDX({
+    source,
+    components: { ...components, ...customComponents },
+    options: {
+      mdxOptions: {
+        remarkPlugins: [createRemarkHeadings(toc)],
+      },
+    },
+  })
+
+  return { content, toc }
+}
+
+export async function CustomMDX({ source, components: customComponents = {} }) {
+  const { content } = await compilePostMDX(source, customComponents)
+
+  return content
 }

@@ -1,5 +1,6 @@
+import { TocSidebar } from "@/app/components/sidebar";
 import { formatDate, getBlogPosts } from "app/blog/utils";
-import { CustomMDX } from "app/components/mdx";
+import { compilePostMDX } from "app/components/mdx";
 import { baseUrl } from "app/sitemap";
 import { notFound } from "next/navigation";
 
@@ -60,8 +61,10 @@ export default async function Blog({ params }) {
     notFound();
   }
 
+  const { content, toc } = await compilePostMDX(post.content);
+
   return (
-    <section>
+    <section className="relative">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -92,9 +95,10 @@ export default async function Blog({ params }) {
           {formatDate(post.metadata.publishedAt)}
         </p>
       </div>
-      <article className="prose font-prose">
-        <CustomMDX source={post.content} />
-      </article>
+      {/* <TableOfContents items={toc} /> */}
+      <TocSidebar items={toc} />
+
+      <article className="prose font-prose">{content}</article>
     </section>
   );
 }
