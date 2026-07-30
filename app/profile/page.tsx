@@ -1,5 +1,5 @@
 import { CustomMDX } from "../components/mdx";
-
+import { GithubCard } from "./github-card";
 export const metadata = {
   title: "Profile",
   description: "Read my profile.",
@@ -31,6 +31,7 @@ export default async function Page() {
       <article className="prose font-prose">
         <CustomMDX source={preparedProfileContent} />
       </article>
+      <GithubCard />
     </section>
   );
 }
