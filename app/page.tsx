@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <section>
       <h1 className="mb-4 text-2xl font-semibold tracking-tighter">
-        <TypingAnimation>{`May Rain`}</TypingAnimation>
+        <TypingAnimation delay={500}>{`May Rain`}</TypingAnimation>
       </h1>
 
       <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
