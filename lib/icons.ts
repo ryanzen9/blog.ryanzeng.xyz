@@ -1,3 +1,5 @@
+import { createElement, forwardRef } from "react";
+
 import {
   ClaudeCode as ClaudeCodeColor,
   CloudflareIcon as CloudflareColor,
@@ -10,7 +12,6 @@ import {
   GithubActions as GithubActionsColor,
   GithubCopilot as GithubCopilotColor,
   Hono as HonoColor,
-  LinuxTux as LinuxColor,
   MysqlIcon as MysqlColor,
   Nestjs as NestjsColor,
   NextjsIcon as NextjsColor,
@@ -28,6 +29,7 @@ import {
   _React as ReactColor,
   _Vue as VueColor,
   type Icon,
+  type IconProps,
 } from "@dev.icons/react";
 import {
   ClaudeCode as ClaudeCodeMono,
@@ -70,6 +72,11 @@ function createDevIconPair(mono: Icon, color: Icon): DevIconPair {
 }
 
 const springIcons = createDevIconPair(SpringMono, SpringColor);
+const LinuxColor = forwardRef<SVGSVGElement, IconProps>((props, ref) =>
+  createElement(LinuxMono, { ...props, ref, color: "#FCC624" }),
+);
+
+LinuxColor.displayName = "LinuxColor";
 
 export const devIcons = {
   react: createDevIconPair(ReactMono, ReactColor),

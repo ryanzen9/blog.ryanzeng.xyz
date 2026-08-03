@@ -5,6 +5,12 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { GitHubUser } from "@/lib/github";
 import { useEffect, useState } from "react";
@@ -57,8 +63,26 @@ function PersonalInfo() {
     );
   }
 
-  return (
-    <div className="flex w-full mx-auto mb-4 items-center gap-2 rounded-lg">
+  const profileCard = (
+    <div className="flex cursor-pointer items-center gap-2">
+      <Avatar className="size-8">
+        <AvatarImage
+          src={profile?.avatar_url ?? ""}
+          alt={profile?.name ?? profile?.login ?? "GitHub User"}
+        />
+        <AvatarFallback>
+          {profile?.name?.[0] ?? profile?.login?.[0] ?? "G"}
+        </AvatarFallback>
+      </Avatar>
+      <div>
+        <p className="text-sm font-medium hover:underline">{profile?.name}</p>
+        <p className="text-muted-foreground text-xs">@{profile?.login}</p>
+      </div>
+    </div>
+  );
+
+  const triggerRender = (
+    <>
       <Avatar size="lg" onClick={openGithubProfile} className="cursor-pointer">
         <AvatarImage
           src={profile?.avatar_url ?? ""}
@@ -81,7 +105,35 @@ function PersonalInfo() {
         >
           @{profile?.login}
         </p>
+        {profile?.bio && (
+          <p className="text-sm text-muted-foreground mt-2">{profile?.bio}</p>
+        )}
       </div>
+      <Separator className="my-2 data-horizontal:w-4/5" />
+      <div className="flex flex-col gap-1 text-xs text-muted-foreground">
+        <p>Location: {profile?.location}</p>
+        {profile?.email && <p>Email: {profile?.email}</p>}
+        {profile?.blog && (
+          <p>
+            WebSite:{" "}
+            <a href={profile?.blog} target="_blank" rel="noopener noreferrer">
+              {profile?.blog}
+            </a>
+          </p>
+        )}
+        <p className="text-2xs">
+          Joined by: {new Date(profile?.created_at ?? "").toLocaleDateString()}
+        </p>
+      </div>
+    </>
+  );
+
+  return (
+    <div className="flex w-full mx-auto mb-4 items-center gap-2 rounded-lg">
+      <HoverCard>
+        <HoverCardTrigger delay={100} closeDelay={100} render={profileCard} />
+        <HoverCardContent align="start">{triggerRender}</HoverCardContent>
+      </HoverCard>
     </div>
   );
 }
