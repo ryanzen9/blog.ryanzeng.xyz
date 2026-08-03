@@ -3,33 +3,11 @@
 import { LogoLoop, type LogoItem } from "@/components/LogoLoop";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import type { CSSProperties } from "react";
-import {
-  siCloudflare,
-  siDocker,
-  siFlutter,
-  siGit,
-  siGithubactions,
-  siHono,
-  siMongodb,
-  siMysql,
-  siNestjs,
-  siNextdotjs,
-  siNodedotjs,
-  siOpenjdk,
-  siPostgresql,
-  siReact,
-  siRedis,
-  siSpringboot,
-  siSqlite,
-  siTailwindcss,
-  siTypescript,
-  type SimpleIcon,
-} from "simple-icons";
+import { devIcons, type DevIconPair } from "@/lib/icons";
 
 type Technology = {
   name: string;
-  icon: SimpleIcon;
+  icons: DevIconPair;
 };
 
 type TechnologyGroup = {
@@ -43,66 +21,82 @@ const TECHNOLOGY_GROUPS: TechnologyGroup[] = [
     label: "Frontend",
     ariaLabel: "Frontend technologies",
     technologies: [
-      { name: "TypeScript", icon: siTypescript },
-      { name: "React", icon: siReact },
-      { name: "Next.js", icon: siNextdotjs },
-      { name: "Tailwind CSS", icon: siTailwindcss },
-      { name: "Flutter", icon: siFlutter },
+      { name: "React", icons: devIcons.react },
+      { name: "Vue", icons: devIcons.vue },
+      { name: "Next.js", icons: devIcons.nextjs },
+      { name: "Flutter", icons: devIcons.flutter },
+      { name: "Tailwind CSS", icons: devIcons.tailwind },
+      { name: "Vite", icons: devIcons.vite },
     ],
   },
   {
     label: "Backend",
     ariaLabel: "Backend technologies",
     technologies: [
-      { name: "Node.js", icon: siNodedotjs },
-      { name: "NestJS", icon: siNestjs },
-      { name: "Hono", icon: siHono },
-      { name: "Spring Boot", icon: siSpringboot },
-      { name: "Java", icon: siOpenjdk },
+      { name: "Node.js", icons: devIcons.nodejs },
+      { name: "NestJS", icons: devIcons.nestjs },
+      { name: "Hono", icons: devIcons.hono },
+      { name: "Spring", icons: devIcons.spring },
+      { name: "Spring Boot", icons: devIcons.springBoot },
+    ],
+  },
+  {
+    label: "AI",
+    ariaLabel: "AI technologies",
+    technologies: [
+      { name: "Codex", icons: devIcons.openai },
+      { name: "Claude Code", icons: devIcons.claudeCode },
+      { name: "Github Copilot", icons: devIcons.githubCopilot },
+      { name: "Cursor", icons: devIcons.cursor },
     ],
   },
   {
     label: "Database",
     ariaLabel: "Database technologies",
     technologies: [
-      { name: "PostgreSQL", icon: siPostgresql },
-      { name: "MySQL", icon: siMysql },
-      { name: "MongoDB", icon: siMongodb },
-      { name: "Redis", icon: siRedis },
-      { name: "SQLite", icon: siSqlite },
+      { name: "PostgreSQL", icons: devIcons.postgresql },
+      { name: "MySQL", icons: devIcons.mysql },
+      { name: "Redis", icons: devIcons.redis },
+      { name: "SQLite", icons: devIcons.sqlite },
+      { name: "Supabase", icons: devIcons.supabase },
+      { name: "Prisma", icons: devIcons.prisma },
+      { name: "Drizzle", icons: devIcons.drizzle },
+      { name: "EdgeDB", icons: devIcons.edgedb },
     ],
   },
   {
     label: "Other",
     ariaLabel: "Other tools and platforms",
     technologies: [
-      { name: "Docker", icon: siDocker },
-      { name: "Git", icon: siGit },
-      { name: "GitHub Actions", icon: siGithubactions },
-      { name: "Cloudflare", icon: siCloudflare },
+      { name: "Docker", icons: devIcons.docker },
+      { name: "Git", icons: devIcons.git },
+      { name: "GitHub Actions", icons: devIcons.githubActions },
+      { name: "Cloudflare", icons: devIcons.cloudflare },
+      { name: "Vercel", icons: devIcons.vercel },
+      { name: "Linux", icons: devIcons.linux },
     ],
   },
 ];
 
-function TechnologyBadge({ name, icon }: Technology) {
-  const brandColor = icon.hex === "000000" ? "var(--foreground)" : `#${icon.hex}`;
-  const style = { "--technology-color": brandColor } as CSSProperties;
+function TechnologyBadge({ name, icons }: Technology) {
+  const MonoIcon = icons.mono;
+  const ColorIcon = icons.color;
 
   return (
     <Badge
       variant="outline"
       className="h-9 gap-2 px-3 text-sm shadow-xs"
-      style={style}
     >
-      <svg
+      <MonoIcon
         aria-hidden="true"
         data-icon="inline-start"
-        role="img"
-        viewBox="0 0 24 24"
-        className="transition-colors duration-200 group-hover/item:text-[var(--technology-color)] motion-reduce:transition-none"
-      >
-        <path fill="currentColor" d={icon.path} />
-      </svg>
+        className="group-hover/item:hidden"
+      />
+      <ColorIcon
+        aria-hidden="true"
+        data-icon="inline-start"
+        className="hidden group-hover/item:block"
+      />
       {name}
     </Badge>
   );

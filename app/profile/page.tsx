@@ -1,36 +1,26 @@
-import { ProfileCard } from "./github-card";
+import { Separator } from "@/components/ui/separator";
+import { ContributionsCalendar } from "./contributions-calendar";
+import { ProfileCard } from "./resume";
+import { TechStack } from "./tech-stack";
+
 export const metadata = {
   title: "Profile",
   description: "Read my profile.",
 };
 
-const PROFILE_URL =
-  "https://raw.githubusercontent.com/ryanzen9/ryanzen9/refs/heads/main/README.md";
-
-function prepareGithubMarkdownForMdx(markdown: string) {
-  return markdown.replace(/<!--[\s\S]*?-->/g, "");
-}
-
 export default async function Page() {
-  const profile = await fetch(PROFILE_URL, {
-    next: {
-      revalidate: 3600,
-    },
-  });
-
-  const profileContent = await profile.text();
-
-  const preparedProfileContent = prepareGithubMarkdownForMdx(profileContent);
-
   return (
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
         My Profile
       </h1>
+      <Separator className="my-4 data-horizontal:w-4/5" />
+
       <ProfileCard />
-      {/* <article className="prose font-prose">
-        <CustomMDX source={preparedProfileContent} />
-      </article> */}
+
+      <TechStack />
+
+      <ContributionsCalendar />
     </section>
   );
 }
