@@ -53,7 +53,7 @@ function PersonalInfo() {
 
   if (loading) {
     return (
-      <div className="flex w-full mx-auto mb-4 items-center gap-2 rounded-lg p-4 ">
+      <div className="flex w-full mx-auto mb-4 items-center gap-2 rounded-lg p-4">
         <Skeleton className="h-12 w-12 rounded-full" />
         <div className="space-y-2">
           <Skeleton className="h-4 w-[200px]" />
@@ -65,7 +65,7 @@ function PersonalInfo() {
 
   const profileCard = (
     <div className="flex cursor-pointer items-center gap-2">
-      <Avatar className="size-8">
+      <Avatar className="h-12 w-12 rounded-full">
         <AvatarImage
           src={profile?.avatar_url ?? ""}
           alt={profile?.name ?? profile?.login ?? "GitHub User"}
@@ -75,8 +75,8 @@ function PersonalInfo() {
         </AvatarFallback>
       </Avatar>
       <div>
-        <p className="text-sm font-medium hover:underline">{profile?.name}</p>
-        <p className="text-muted-foreground text-xs">@{profile?.login}</p>
+        <p className="text-lg font-medium hover:underline">{profile?.name}</p>
+        <p className="text-muted-foreground text-sm">@{profile?.login}</p>
       </div>
     </div>
   );
@@ -129,7 +129,7 @@ function PersonalInfo() {
   );
 
   return (
-    <div className="flex w-full mx-auto mb-4 items-center gap-2 rounded-lg">
+    <div className="flex w-full mx-auto mb-4 items-center gap-2 rounded-lg p-4">
       <HoverCard>
         <HoverCardTrigger delay={100} closeDelay={100} render={profileCard} />
         <HoverCardContent align="start">{triggerRender}</HoverCardContent>
