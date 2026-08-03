@@ -1,4 +1,5 @@
 import { Separator } from "@/components/ui/separator";
+import { CareerLine } from "./career-line";
 import { ContributionsCalendar } from "./contributions-calendar";
 import { ProfileCard } from "./resume";
 import { TechStack } from "./tech-stack";
@@ -19,6 +20,8 @@ export default async function Page() {
       <ProfileCard />
 
       <TechStack />
+
+      <CareerLine />
 
       <ContributionsCalendar />
     </section>
