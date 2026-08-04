@@ -2,46 +2,97 @@
 
 import LineSidebar, { type LineSidebarItem } from "@/components/LineSidebar";
 import type { TocItem } from "app/blog/toc";
-import { useMemo, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-function decodeHash(hash: string) {
-  const value = hash.replace(/^#/, "");
+function useActiveHeading(items: TocItem[]) {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  try {
-    return decodeURIComponent(value);
-  } catch {
-    return value;
-  }
-}
+  useEffect(() => {
+    const headings = items
+      .map((item, index) => ({
+        element: document.getElementById(item.id),
+        index,
+      }))
+      .filter(
+        (heading): heading is { element: HTMLElement; index: number } =>
+          heading.element !== null,
+      );
 
-function getHashSnapshot() {
-  return decodeHash(window.location.hash);
-}
+    if (headings.length === 0) {
+      setActiveIndex(null);
+      return;
+    }
 
-function getServerHashSnapshot() {
-  return "";
-}
+    let animationFrame: number | null = null;
 
-function subscribeToHash(onStoreChange: () => void) {
-  window.addEventListener("hashchange", onStoreChange);
-  window.addEventListener("popstate", onStoreChange);
+    const updateActiveHeading = () => {
+      animationFrame = null;
 
-  return () => {
-    window.removeEventListener("hashchange", onStoreChange);
-    window.removeEventListener("popstate", onStoreChange);
-  };
+      // A heading becomes active shortly before it reaches the top of the
+      // viewport, which better matches the paragraph the reader is looking at.
+      const readingLine = Math.min(window.innerHeight * 0.25, 160);
+      let nextIndex = headings[0].index;
+
+      for (const heading of headings) {
+        if (heading.element.getBoundingClientRect().top > readingLine) {
+          break;
+        }
+
+        nextIndex = heading.index;
+      }
+
+      const isAtPageEnd =
+        window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight - 2;
+
+      if (isAtPageEnd) {
+        nextIndex = headings.at(-1)?.index ?? nextIndex;
+      }
+
+      setActiveIndex((currentIndex) =>
+        currentIndex === nextIndex ? currentIndex : nextIndex,
+      );
+    };
+
+    const scheduleUpdate = () => {
+      if (animationFrame === null) {
+        animationFrame = window.requestAnimationFrame(updateActiveHeading);
+      }
+    };
+
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("hashchange", scheduleUpdate);
+    window.addEventListener("popstate", scheduleUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("hashchange", scheduleUpdate);
+      window.removeEventListener("popstate", scheduleUpdate);
+
+      if (animationFrame !== null) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [items]);
+
+  return [activeIndex, setActiveIndex] as const;
 }
 
 type TocLinksProps = {
   items: readonly LineSidebarItem[];
   activeIndex: number | null;
+  onItemClick: (index: number) => void;
 };
 
-function TocLinks({ items, activeIndex }: TocLinksProps) {
+function TocLinks({ items, activeIndex, onItemClick }: TocLinksProps) {
   return (
     <LineSidebar
       items={items}
       activeIndex={activeIndex}
+      onItemClick={onItemClick}
       accentColor="var(--foreground)"
       textColor="var(--muted-foreground)"
       markerColor="var(--border)"
@@ -62,11 +113,7 @@ function TocLinks({ items, activeIndex }: TocLinksProps) {
 }
 
 export function TocSidebar({ items }: { items: TocItem[] }) {
-  const hash = useSyncExternalStore(
-    subscribeToHash,
-    getHashSnapshot,
-    getServerHashSnapshot,
-  );
+  const [activeIndex, setActiveIndex] = useActiveHeading(items);
 
   const sidebarItems = useMemo<LineSidebarItem[]>(
     () =>
@@ -78,8 +125,12 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
     [items],
   );
 
-  const matchedIndex = items.findIndex((item) => item.id === hash);
-  const activeIndex = matchedIndex >= 0 ? matchedIndex : null;
+  const handleItemClick = useCallback(
+    (index: number) => {
+      setActiveIndex(index);
+    },
+    [setActiveIndex],
+  );
 
   if (items.length === 0) {
     return null;
@@ -99,7 +150,11 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
         </summary>
 
         <nav aria-label="文章目录" className="mt-3">
-          <TocLinks items={sidebarItems} activeIndex={activeIndex} />
+          <TocLinks
+            items={sidebarItems}
+            activeIndex={activeIndex}
+            onItemClick={handleItemClick}
+          />
         </nav>
       </details>
 
@@ -109,7 +164,11 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
             文章目录
           </p>
 
-          <TocLinks items={sidebarItems} activeIndex={activeIndex} />
+          <TocLinks
+            items={sidebarItems}
+            activeIndex={activeIndex}
+            onItemClick={handleItemClick}
+          />
         </nav>
       </aside>
     </>
