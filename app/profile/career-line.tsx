@@ -9,62 +9,60 @@ import {
   TimelineTitle,
 } from "@/components/reui/timeline";
 
-const roadmap = [
+const careerTimeline = [
   {
     id: 1,
-    date: "Oct 2020",
-    title: "University of Emergency Management (UEM)",
+    date: "Oct 2020 — Jun 2024",
+    title:
+      "B.Eng. Computer Science and Technology · University of Emergency Management",
     description:
-      "Bachelor of Engineering in Computer Science and Technology, University of Emergency Management.",
+      "Bachelor of Engineering in Computer Science and Technology.",
   },
   {
     id: 2,
     date: "Oct 2023",
-    title: "C&D Agricultural Products Group",
+    title: "Project Contributor · C&D Agricultural Products Group",
     description:
-      "Participated in the development of an in-house Production Order Management System (OMS).",
+      "Contributed to an in-house Production Order Management System (OMS).",
   },
   {
     id: 3,
-    date: "Jun 2024",
-    title: "Graduated from university",
+    date: "Jul 2024 — Present",
+    title: "Software Engineer · Tea Industry",
+    description:
+      "Responsible for the end-to-end development and operation of internal digital systems for tea production.",
   },
   {
     id: 4,
-    date: "Jul 2024",
-    title: "Full-stack Developer",
+    date: "Present",
+    title: "Exploring AI Agent Engineering",
     description:
-      "Full-stack Software Engineer at one of China’s leading tea companies, responsible for the end-to-end development of in-house digital systems for production operations.",
-  },
-  {
-    id: 5,
-    date: "Now",
-    title: "AI Agent Engineer (Want to be)",
-    description:
-      "Learning and exploring AI agent development, focusing on the integration of AI technologies into practical applications.",
+      "Learning and prototyping AI agent workflows for practical applications.",
   },
 ];
 
+const careerTimelineItems = [...careerTimeline].reverse();
+
 export function CareerLine() {
   return (
-    <section aria-labelledby="technology-stack-title" className="py-4">
-      <div className="mb-2 flex flex-col gap-1">
+    <section aria-labelledby="career-timeline-title">
+      <div className="mb-6 flex flex-col gap-1.5">
         <h2
-          id="technology-stack-title"
-          className="text-xl font-medium tracking-tighter"
+          id="career-timeline-title"
+          className="text-2xl font-medium tracking-tight"
         >
-          Career Roadmap
+          Career Timeline
         </h2>
-        <p className="text-sm text-muted-foreground">
-          My planned career milestones and achievements.
+        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+          Education, professional experience, and current areas of exploration.
         </p>
       </div>
 
       <Timeline
-        defaultValue={roadmap[roadmap.length - 2].id}
+        defaultValue={careerTimeline[careerTimeline.length - 2].id}
         className="w-full max-w-md mx-auto"
       >
-        {roadmap.reverse().map((item) => (
+        {careerTimelineItems.map((item) => (
           <TimelineItem
             key={item.id}
             step={item.id}

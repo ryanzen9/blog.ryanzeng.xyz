@@ -1,23 +1,33 @@
-import { Separator } from "@/components/ui/separator";
+import { fetchGitHubUser } from "@/lib/github";
 import { CareerLine } from "./career-line";
 import { ContributionsCalendar } from "./contributions-calendar";
-import { ProfileCard } from "./resume";
+import { ProfileHero } from "./profile-hero";
+import { SelectedWork } from "./selected-work";
 import { TechStack } from "./tech-stack";
 
 export const metadata = {
-  title: "Profile",
-  description: "Read my profile.",
+  title: "Ryan Zeng",
+  description:
+    "Software engineer building production systems across web, data, infrastructure, and AI-assisted workflows.",
 };
 
-export default async function Page() {
-  return (
-    <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-        My Profile
-      </h1>
-      <Separator className="my-4 data-horizontal:w-4/5" />
+async function getProfile() {
+  try {
+    return await fetchGitHubUser("ryanzen9");
+  } catch (error) {
+    console.error("Failed to load the GitHub profile", error);
+    return null;
+  }
+}
 
-      <ProfileCard />
+export default async function Page() {
+  const profile = await getProfile();
+
+  return (
+    <section lang="en" className="space-y-14 sm:space-y-16">
+      <ProfileHero profile={profile} />
+
+      <SelectedWork />
 
       <TechStack />
 

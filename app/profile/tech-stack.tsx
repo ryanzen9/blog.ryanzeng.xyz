@@ -18,41 +18,27 @@ type TechnologyGroup = {
 
 const TECHNOLOGY_GROUPS: TechnologyGroup[] = [
   {
-    label: "Frontend",
-    ariaLabel: "Frontend technologies",
+    label: "Build",
+    ariaLabel: "Languages and application development technologies",
     technologies: [
+      { name: "TypeScript", icons: devIcons.typescript },
+      { name: "Java", icons: devIcons.java },
+      { name: "Dart", icons: devIcons.dart },
       { name: "React", icons: devIcons.react },
       { name: "Vue", icons: devIcons.vue },
       { name: "Next.js", icons: devIcons.nextjs },
       { name: "Flutter", icons: devIcons.flutter },
       { name: "Tailwind CSS", icons: devIcons.tailwind },
       { name: "Vite", icons: devIcons.vite },
-    ],
-  },
-  {
-    label: "Backend",
-    ariaLabel: "Backend technologies",
-    technologies: [
       { name: "Node.js", icons: devIcons.nodejs },
       { name: "NestJS", icons: devIcons.nestjs },
       { name: "Hono", icons: devIcons.hono },
-      { name: "Spring", icons: devIcons.spring },
       { name: "Spring Boot", icons: devIcons.springBoot },
     ],
   },
   {
-    label: "AI",
-    ariaLabel: "AI technologies",
-    technologies: [
-      { name: "Codex", icons: devIcons.openai },
-      { name: "Claude Code", icons: devIcons.claudeCode },
-      { name: "Github Copilot", icons: devIcons.githubCopilot },
-      { name: "Cursor", icons: devIcons.cursor },
-    ],
-  },
-  {
-    label: "Database",
-    ariaLabel: "Database technologies",
+    label: "Data",
+    ariaLabel: "Databases, data platforms, and data access tools",
     technologies: [
       { name: "PostgreSQL", icons: devIcons.postgresql },
       { name: "MySQL", icons: devIcons.mysql },
@@ -65,9 +51,13 @@ const TECHNOLOGY_GROUPS: TechnologyGroup[] = [
     ],
   },
   {
-    label: "Other",
-    ariaLabel: "Other tools and platforms",
+    label: "Tooling & Platforms",
+    ariaLabel: "AI development tools, delivery tools, and platforms",
     technologies: [
+      { name: "Codex", icons: devIcons.openai },
+      { name: "Claude Code", icons: devIcons.claudeCode },
+      { name: "GitHub Copilot", icons: devIcons.githubCopilot },
+      { name: "Cursor", icons: devIcons.cursor },
       { name: "Docker", icons: devIcons.docker },
       { name: "Git", icons: devIcons.git },
       { name: "GitHub Actions", icons: devIcons.githubActions },
@@ -117,16 +107,17 @@ const GROUPS_WITH_LOGOS = TECHNOLOGY_GROUPS.map((group) => ({
 
 export function TechStack() {
   return (
-    <section aria-labelledby="technology-stack-title" className="py-4">
-      <div className="mb-2 flex flex-col gap-1">
+    <section aria-labelledby="technology-stack-title">
+      <div className="mb-6 flex flex-col gap-1.5">
         <h2
           id="technology-stack-title"
-          className="text-xl font-medium tracking-tighter"
+          className="text-2xl font-medium tracking-tight"
         >
           Technology Stack
         </h2>
-        <p className="text-sm text-muted-foreground">
-          Technologies I use to build, ship, and maintain products.
+        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+          Languages, frameworks, data tools, and platforms I use to build and
+          operate products.
         </p>
       </div>
 
@@ -134,7 +125,7 @@ export function TechStack() {
         {GROUPS_WITH_LOGOS.map((group, index) => (
           <div key={group.label}>
             {index > 0 && <Separator />}
-            <div className="grid gap-3 py-4 sm:grid-cols-[5.5rem_minmax(0,1fr)] sm:items-center">
+            <div className="grid gap-3 py-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-center sm:gap-4">
               <h3 className="text-sm font-medium text-muted-foreground">
                 {group.label}
               </h3>
