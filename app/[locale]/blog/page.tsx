@@ -1,5 +1,5 @@
+import { BlogPosts } from "@/app/components/posts";
 import { Separator } from "@/components/ui/separator";
-import { BlogPosts } from "app/components/posts";
 
 export const metadata = {
   title: "Blog",

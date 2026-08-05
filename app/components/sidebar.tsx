@@ -1,7 +1,7 @@
 "use client";
 
+import type { TocItem } from "@/app/[locale]/blog/toc";
 import LineSidebar, { type LineSidebarItem } from "@/components/LineSidebar";
-import type { TocItem } from "app/blog/toc";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 function useActiveHeading(items: TocItem[]) {

@@ -1,4 +1,4 @@
-import type { TocItem } from "app/blog/toc";
+import type { TocItem } from "@/app/[locale]/blog/toc";
 import { cn } from "@/lib/utils";
 
 type TableOfContentsProps = {

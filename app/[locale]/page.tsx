@@ -1,12 +1,14 @@
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { BlogPosts } from "app/components/posts";
+import { getTranslations } from "next-intl/server";
 
-export default function Page() {
+export default async function Page() {
+  const t = await getTranslations("common");
   return (
     <section>
       <h1 className="mb-4 text-2xl font-semibold tracking-tighter">
-        <TypingAnimation delay={500}>{`May Rain`}</TypingAnimation>
+        <TypingAnimation delay={500}>{t("title")}</TypingAnimation>
       </h1>
 
       <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">

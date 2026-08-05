@@ -1,4 +1,4 @@
-import { getBlogPosts } from "app/blog/utils";
+import { getBlogPosts } from "./[locale]/blog/utils";
 
 export const baseUrl =
   process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";

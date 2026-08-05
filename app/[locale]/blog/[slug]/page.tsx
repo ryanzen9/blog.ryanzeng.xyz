@@ -1,8 +1,8 @@
+import { compilePostMDX } from "@/app/components/mdx";
 import { TocSidebar } from "@/app/components/sidebar";
-import { formatDate, getBlogPosts } from "app/blog/utils";
-import { compilePostMDX } from "app/components/mdx";
-import { baseUrl } from "app/sitemap";
+import { baseUrl } from "@/app/sitemap";
 import { notFound } from "next/navigation";
+import { formatDate, getBlogPosts } from "../utils";
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();

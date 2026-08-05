@@ -1,24 +1,21 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { compileMDX } from 'next-mdx-remote/rsc'
-import { highlight } from 'sugar-high'
-import React from 'react'
-import {
-  createRemarkHeadings,
-  type TocItem,
-} from 'app/blog/toc'
+import { createRemarkHeadings, type TocItem } from "@/app/[locale]/blog/toc";
+import { Link } from "@/i18n/navigation";
+import { compileMDX } from "next-mdx-remote/rsc";
+import Image from "next/image";
+import React from "react";
+import { highlight } from "sugar-high";
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
     <th key={index}>{header}</th>
-  ))
+  ));
   let rows = data.rows.map((row, index) => (
     <tr key={index}>
       {row.map((cell, cellIndex) => (
         <td key={cellIndex}>{cell}</td>
       ))}
     </tr>
-  ))
+  ));
 
   return (
     <table>
@@ -27,34 +24,34 @@ function Table({ data }) {
       </thead>
       <tbody>{rows}</tbody>
     </table>
-  )
+  );
 }
 
 function CustomLink(props) {
-  let href = props.href
+  let href = props.href;
 
-  if (href.startsWith('/')) {
+  if (href.startsWith("/")) {
     return (
       <Link href={href} {...props}>
         {props.children}
       </Link>
-    )
+    );
   }
 
-  if (href.startsWith('#')) {
-    return <a {...props} />
+  if (href.startsWith("#")) {
+    return <a {...props} />;
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />
+  return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
 function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />
+  return <Image alt={props.alt} className="rounded-lg" {...props} />;
 }
 
 function Code({ children, ...props }) {
-  let codeHTML = highlight(children)
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+  let codeHTML = highlight(children);
+  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
 function createHeading(level) {
@@ -63,20 +60,20 @@ function createHeading(level) {
       `h${level}`,
       { id, ...props },
       id
-        ? React.createElement('a', {
+        ? React.createElement("a", {
             href: `#${id}`,
             key: `link-${id}`,
-            className: 'anchor',
-            'aria-label': `跳转到 ${id}`,
+            className: "anchor",
+            "aria-label": `跳转到 ${id}`,
           })
         : null,
-      children
-    )
-  }
+      children,
+    );
+  };
 
-  Heading.displayName = `Heading${level}`
+  Heading.displayName = `Heading${level}`;
 
-  return Heading
+  return Heading;
 }
 
 let components = {
@@ -90,10 +87,10 @@ let components = {
   a: CustomLink,
   code: Code,
   Table,
-}
+};
 
 export async function compilePostMDX(source, customComponents = {}) {
-  const toc: TocItem[] = []
+  const toc: TocItem[] = [];
   const { content } = await compileMDX({
     source,
     components: { ...components, ...customComponents },
@@ -102,13 +99,13 @@ export async function compilePostMDX(source, customComponents = {}) {
         remarkPlugins: [createRemarkHeadings(toc)],
       },
     },
-  })
+  });
 
-  return { content, toc }
+  return { content, toc };
 }
 
 export async function CustomMDX({ source, components: customComponents = {} }) {
-  const { content } = await compilePostMDX(source, customComponents)
+  const { content } = await compilePostMDX(source, customComponents);
 
-  return content
+  return content;
 }
