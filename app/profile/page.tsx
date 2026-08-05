@@ -2,7 +2,6 @@ import { fetchGitHubUser } from "@/lib/github";
 import { CareerLine } from "./career-line";
 import { ContributionsCalendar } from "./contributions-calendar";
 import { ProfileHero } from "./profile-hero";
-import { SelectedWork } from "./selected-work";
 import { TechStack } from "./tech-stack";
 
 export const metadata = {
@@ -27,7 +26,8 @@ export default async function Page() {
     <section lang="en" className="space-y-14 sm:space-y-16">
       <ProfileHero profile={profile} />
 
-      <SelectedWork />
+      {/* 暂时隐藏
+      <SelectedWork /> */}
 
       <TechStack />
 
