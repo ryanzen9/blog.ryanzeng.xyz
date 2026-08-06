@@ -4,6 +4,7 @@ import { LogoLoop, type LogoItem } from "@/components/LogoLoop";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { devIcons, type DevIconPair } from "@/lib/icons";
+import { useTranslations } from "next-intl";
 
 type Technology = {
   name: string;
@@ -11,15 +12,13 @@ type Technology = {
 };
 
 type TechnologyGroup = {
-  label: string;
-  ariaLabel: string;
+  key: "build" | "data" | "tooling";
   technologies: Technology[];
 };
 
 const TECHNOLOGY_GROUPS: TechnologyGroup[] = [
   {
-    label: "Build",
-    ariaLabel: "Languages and application development technologies",
+    key: "build",
     technologies: [
       { name: "TypeScript", icons: devIcons.typescript },
       { name: "Java", icons: devIcons.java },
@@ -37,8 +36,7 @@ const TECHNOLOGY_GROUPS: TechnologyGroup[] = [
     ],
   },
   {
-    label: "Data",
-    ariaLabel: "Databases, data platforms, and data access tools",
+    key: "data",
     technologies: [
       { name: "PostgreSQL", icons: devIcons.postgresql },
       { name: "MySQL", icons: devIcons.mysql },
@@ -51,8 +49,7 @@ const TECHNOLOGY_GROUPS: TechnologyGroup[] = [
     ],
   },
   {
-    label: "Tooling & Platforms",
-    ariaLabel: "AI development tools, delivery tools, and platforms",
+    key: "tooling",
     technologies: [
       { name: "Codex", icons: devIcons.openai },
       { name: "Claude Code", icons: devIcons.claudeCode },
@@ -106,6 +103,8 @@ const GROUPS_WITH_LOGOS = TECHNOLOGY_GROUPS.map((group) => ({
 }));
 
 export function TechStack() {
+  const t = useTranslations("profile.techStack");
+
   return (
     <section aria-labelledby="technology-stack-title">
       <div className="mb-6 flex flex-col gap-1.5">
@@ -113,21 +112,20 @@ export function TechStack() {
           id="technology-stack-title"
           className="text-2xl font-medium tracking-tight"
         >
-          Technology Stack
+          {t("title")}
         </h2>
         <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-          Languages, frameworks, data tools, and platforms I use to build and
-          operate products.
+          {t("description")}
         </p>
       </div>
 
       <div className="flex flex-col">
         {GROUPS_WITH_LOGOS.map((group, index) => (
-          <div key={group.label}>
+          <div key={group.key}>
             {index > 0 && <Separator />}
             <div className="grid gap-3 py-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-center sm:gap-4">
               <h3 className="text-sm font-medium text-muted-foreground">
-                {group.label}
+                {t(`groups.${group.key}.label`)}
               </h3>
               <LogoLoop
                 logos={group.logos}
@@ -138,7 +136,7 @@ export function TechStack() {
                 scaleOnHover
                 fadeOut
                 fadeOutColor="var(--background)"
-                ariaLabel={group.ariaLabel}
+                ariaLabel={t(`groups.${group.key}.ariaLabel`)}
               />
             </div>
           </div>

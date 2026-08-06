@@ -8,6 +8,10 @@
     },
     "home": {
         "title": "May Rain",
+        "description1": "I'm Ryan.",
+        "description2": "I am a full stack developer(Maybe) from China.",
+        "description3": "An obsessive lover of black and green.",
+        "signature": "There's no reason for it, you've gotta go sometime.",
         "metadata": {
             "title": "Home Page",
             "description": "Welcome to my personal blog, where I share my thoughts on technology, programming, and life."
@@ -17,6 +21,95 @@
         "metadata": {
             "title": "Profile Page",
             "description": "Learn more about me, my background, and my interests."
+        },
+        "hero": {
+            "roleLocation": "Software Engineer · China",
+            "githubProfileAria": "Open {name}'s GitHub profile",
+            "introduction": {
+                "primary": "I build and operate production systems across frontend, backend, databases, and infrastructure. My work includes ERP systems for traditional manufacturing businesses and consumer-facing e-commerce applications.",
+                "currentFocus": "I am currently exploring AI agent development with a focus on practical workflows, while contributing more actively to open-source projects."
+            },
+            "links": {
+                "email": "Email",
+                "github": "GitHub"
+            }
+        },
+        "techStack": {
+            "title": "Technology Stack",
+            "description": "Languages, frameworks, data tools, and platforms I use to build and operate products.",
+            "groups": {
+                "build": {
+                    "label": "Build",
+                    "ariaLabel": "Languages and application development technologies"
+                },
+                "data": {
+                    "label": "Data",
+                    "ariaLabel": "Databases, data platforms, and data access tools"
+                },
+                "tooling": {
+                    "label": "Tooling & Platforms",
+                    "ariaLabel": "AI development tools, delivery tools, and platforms"
+                }
+            }
+        },
+        "career": {
+            "title": "Career Timeline",
+            "description": "Education, professional experience, and current areas of exploration.",
+            "items": {
+                "education": {
+                    "date": "Oct 2020 — Jun 2024",
+                    "title": "B.Eng. Computer Science and Technology · University of Emergency Management",
+                    "description": "Bachelor of Engineering in Computer Science and Technology."
+                },
+                "projectContributor": {
+                    "date": "Oct 2023",
+                    "title": "Project Contributor · C&D Agricultural Products Group",
+                    "description": "Contributed to an in-house Production Order Management System (OMS)."
+                },
+                "softwareEngineer": {
+                    "date": "Jul 2024 — Present",
+                    "title": "Software Engineer · Tea Industry",
+                    "description": "Responsible for the end-to-end development and operation of internal digital systems for tea production."
+                },
+                "aiAgent": {
+                    "date": "Present",
+                    "title": "Exploring AI Agent Engineering",
+                    "description": "Learning and prototyping AI agent workflows for practical applications."
+                }
+            }
+        },
+        "contributions": {
+            "title": "GitHub Contributions",
+            "description": "My GitHub contributions over the last year. You can also check out my <profile>GitHub profile</profile> for more details.",
+            "calendar": {
+                "error": "Unable to load GitHub contributions.",
+                "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                "totalCount": "{{count}} contributions in {{year}}",
+                "legend": {
+                    "less": "Less",
+                    "more": "More"
+                }
+            }
+        },
+        "selectedWork": {
+            "title": "Selected Work",
+            "description": "Representative projects and detailed case studies are being prepared.",
+            "comingSoon": "Coming soon",
+            "items": {
+                "manufacturingErp": {
+                    "category": "Internal systems",
+                    "title": "Manufacturing ERP"
+                },
+                "ecommerce": {
+                    "category": "Product engineering",
+                    "title": "Consumer E-commerce"
+                },
+                "aiAgent": {
+                    "category": "Current focus",
+                    "title": "AI Agent Experiments"
+                }
+            }
         }
     },
     "blog": {

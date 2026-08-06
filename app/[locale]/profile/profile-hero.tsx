@@ -1,10 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { GitHubUser } from "@/lib/github";
+import { useTranslations } from "next-intl";
 
 const GITHUB_USERNAME = "ryanzen9";
 const GITHUB_PROFILE_URL = `https://github.com/${GITHUB_USERNAME}`;
 
 export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
+  const t = useTranslations("profile.hero");
   const name = profile?.name ?? "Ryan Zeng";
   const username = profile?.login ?? GITHUB_USERNAME;
   const profileUrl = profile?.html_url ?? GITHUB_PROFILE_URL;
@@ -12,7 +14,7 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
   return (
     <header aria-labelledby="profile-title" className="pt-2">
       <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-        Software Engineer · China
+        {t("roleLocation")}
       </p>
 
       <div className="flex items-center gap-4">
@@ -20,7 +22,7 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
           href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Open ${name}'s GitHub profile`}
+          aria-label={t("githubProfileAria", { name })}
           className="rounded-full outline-none transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <Avatar className="size-16">
@@ -48,17 +50,8 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
       </div>
 
       <div className="mt-8 max-w-[62ch] space-y-4 font-prose text-base leading-7 text-foreground/80 sm:text-[1.0625rem] sm:leading-8">
-        <p>
-          I build and operate production systems across frontend, backend,
-          databases, and infrastructure. My work includes ERP systems for
-          traditional manufacturing businesses and consumer-facing e-commerce
-          applications.
-        </p>
-        <p>
-          I am currently exploring AI agent development with a focus on
-          practical workflows, while contributing more actively to open-source
-          projects.
-        </p>
+        <p>{t("introduction.primary")}</p>
+        <p>{t("introduction.currentFocus")}</p>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
@@ -66,7 +59,7 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
           href="mailto:rubyceng0326@gmail.com"
           className="underline decoration-border underline-offset-4 transition-colors hover:text-muted-foreground"
         >
-          Email ↗
+          {t("links.email")} ↗
         </a>
         <a
           href={profileUrl}
@@ -74,7 +67,7 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
           rel="noopener noreferrer"
           className="underline decoration-border underline-offset-4 transition-colors hover:text-muted-foreground"
         >
-          GitHub ↗
+          {t("links.github")} ↗
         </a>
       </div>
     </header>

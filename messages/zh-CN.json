@@ -5,20 +5,113 @@
     },
     "home": {
         "title": "May Rain",
+        "description1": "I'm Ryan.",
+        "signature": "There's no reason for it, you've gotta go sometime.",
+        "description2": "我是来自于中国的一名软件全栈开发者(也许...",
+        "description3": "一名偏执的黑色和绿色爱好者.",
         "metadata": {
             "title": "主页",
-            "description": "欢迎来到我的个人博客，在这里我分享我对技术、编程和生活的思考。"
+            "description": "欢迎来到我的个人博客，在这里我分享我对技术、编程和生活的思考."
         }
     },
     "profile": {
         "metadata": {
-            "title": "个人主页",
+            "title": "个人资料",
             "description": "了解更多关于我、我的背景和我的兴趣。"
+        },
+        "hero": {
+            "roleLocation": "软件工程师 · 中国",
+            "githubProfileAria": "打开 {name} 的 GitHub 主页",
+            "introduction": {
+                "primary": "我负责构建和运维横跨前端、后端、数据库及基础设施的生产系统。我的工作涵盖传统制造企业的 ERP 系统，以及面向消费者的电商应用。",
+                "currentFocus": "目前我正专注于探索面向实际工作流的 AI Agent 开发，并更加积极地参与开源项目。"
+            },
+            "links": {
+                "email": "邮箱",
+                "github": "GitHub"
+            }
+        },
+        "techStack": {
+            "title": "技术栈",
+            "description": "我在产品构建和运维中使用的编程语言、框架、数据工具及平台。",
+            "groups": {
+                "build": {
+                    "label": "构建",
+                    "ariaLabel": "编程语言与应用开发技术"
+                },
+                "data": {
+                    "label": "数据",
+                    "ariaLabel": "数据库、数据平台与数据访问工具"
+                },
+                "tooling": {
+                    "label": "工具与平台",
+                    "ariaLabel": "AI 开发工具、交付工具与平台"
+                }
+            }
+        },
+        "career": {
+            "title": "经历时间线",
+            "description": "教育经历、职业经验以及目前正在探索的方向。",
+            "items": {
+                "education": {
+                    "date": "2020年10月 — 2024年6月",
+                    "title": "计算机科学与技术工学学士 · 应急管理大学",
+                    "description": "取得计算机科学与技术专业工学学士学位。"
+                },
+                "projectContributor": {
+                    "date": "2023年10月",
+                    "title": "项目贡献者 · 建发农产品集团",
+                    "description": "参与企业内部生产订单管理系统（OMS）的开发。"
+                },
+                "softwareEngineer": {
+                    "date": "2024年7月 — 至今",
+                    "title": "软件工程师 · 茶行业",
+                    "description": "负责茶叶生产内部数字化系统的端到端开发与运维。"
+                },
+                "aiAgent": {
+                    "date": "现在",
+                    "title": "探索 AI Agent 工程",
+                    "description": "学习并构建面向实际应用的 AI Agent 工作流原型。"
+                }
+            }
+        },
+        "contributions": {
+            "title": "GitHub 贡献",
+            "description": "过去一年我的 GitHub 贡献记录。你也可以查看我的 <profile>GitHub 主页</profile>了解更多。",
+            "calendar": {
+                "error": "无法加载 GitHub 贡献记录。",
+                "months": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                "weekdays": ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+                "totalCount": "{{year}} 年共有 {{count}} 次贡献",
+                "legend": {
+                    "less": "少",
+                    "more": "多"
+                }
+            }
+        },
+        "selectedWork": {
+            "title": "代表项目",
+            "description": "代表性项目及详细案例正在整理中。",
+            "comingSoon": "即将推出",
+            "items": {
+                "manufacturingErp": {
+                    "category": "内部系统",
+                    "title": "制造业 ERP"
+                },
+                "ecommerce": {
+                    "category": "产品工程",
+                    "title": "消费者电商应用"
+                },
+                "aiAgent": {
+                    "category": "当前方向",
+                    "title": "AI Agent 实验"
+                }
+            }
         }
     },
     "blog": {
         "metadata": {
-            "title": "博客页面",
+            "title": "博文",
             "description": "阅读我关于技术、编程和生活的最新博客文章。"
         }
     },

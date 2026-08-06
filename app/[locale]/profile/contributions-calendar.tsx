@@ -1,10 +1,12 @@
 "use client";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 
 export function ContributionsCalendar() {
+  const t = useTranslations("profile.contributions");
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
   const [showLeftFade, setShowLeftFade] = useState(false);
@@ -23,19 +25,21 @@ export function ContributionsCalendar() {
           id="github-contributions-title"
           className="text-2xl font-medium tracking-tight"
         >
-          GitHub Contributions
+          {t("title")}
         </h2>
         <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-          My GitHub contributions over the last year. You can also check out my{" "}
-          <a
-            href="https://github.com/ryanzen9"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline"
-          >
-            GitHub profile
-          </a>{" "}
-          for more details.
+          {t.rich("description", {
+            profile: (chunks) => (
+              <a
+                href="https://github.com/ryanzen9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline"
+              >
+                {chunks}
+              </a>
+            ),
+          })}
         </p>
       </div>
 
@@ -58,6 +62,16 @@ export function ContributionsCalendar() {
                 username="ryanzen9"
                 colorScheme={colorScheme}
                 blockSize={8}
+                errorMessage={t("calendar.error")}
+                labels={{
+                  months: t.raw("calendar.months") as string[],
+                  weekdays: t.raw("calendar.weekdays") as string[],
+                  totalCount: t.raw("calendar.totalCount") as string,
+                  legend: {
+                    less: t("calendar.legend.less"),
+                    more: t("calendar.legend.more"),
+                  },
+                }}
               />
             ) : (
               <Skeleton className="h-40 w-full rounded-lg" />

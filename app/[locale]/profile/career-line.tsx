@@ -8,42 +8,32 @@ import {
   TimelineSeparator,
   TimelineTitle,
 } from "@/components/reui/timeline";
+import { useTranslations } from "next-intl";
 
 const careerTimeline = [
   {
     id: 1,
-    date: "Oct 2020 — Jun 2024",
-    title:
-      "B.Eng. Computer Science and Technology · University of Emergency Management",
-    description:
-      "Bachelor of Engineering in Computer Science and Technology.",
+    key: "education",
   },
   {
     id: 2,
-    date: "Oct 2023",
-    title: "Project Contributor · C&D Agricultural Products Group",
-    description:
-      "Contributed to an in-house Production Order Management System (OMS).",
+    key: "projectContributor",
   },
   {
     id: 3,
-    date: "Jul 2024 — Present",
-    title: "Software Engineer · Tea Industry",
-    description:
-      "Responsible for the end-to-end development and operation of internal digital systems for tea production.",
+    key: "softwareEngineer",
   },
   {
     id: 4,
-    date: "Present",
-    title: "Exploring AI Agent Engineering",
-    description:
-      "Learning and prototyping AI agent workflows for practical applications.",
+    key: "aiAgent",
   },
-];
+] as const;
 
 const careerTimelineItems = [...careerTimeline].reverse();
 
 export function CareerLine() {
+  const t = useTranslations("profile.career");
+
   return (
     <section aria-labelledby="career-timeline-title">
       <div className="mb-6 flex flex-col gap-1.5">
@@ -51,10 +41,10 @@ export function CareerLine() {
           id="career-timeline-title"
           className="text-2xl font-medium tracking-tight"
         >
-          Career Timeline
+          {t("title")}
         </h2>
         <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-          Education, professional experience, and current areas of exploration.
+          {t("description")}
         </p>
       </div>
 
@@ -71,12 +61,16 @@ export function CareerLine() {
             <TimelineHeader>
               <TimelineSeparator />
               <TimelineDate className="sm:group-data-[orientation=vertical]/timeline:absolute sm:group-data-[orientation=vertical]/timeline:-left-32 sm:group-data-[orientation=vertical]/timeline:w-20 sm:group-data-[orientation=vertical]/timeline:text-right">
-                {item.date}
+                {t(`items.${item.key}.date`)}
               </TimelineDate>
-              <TimelineTitle className="sm:-mt-0.5">{item.title}</TimelineTitle>
+              <TimelineTitle className="sm:-mt-0.5">
+                {t(`items.${item.key}.title`)}
+              </TimelineTitle>
               <TimelineIndicator />
             </TimelineHeader>
-            <TimelineContent>{item.description}</TimelineContent>
+            <TimelineContent>
+              {t(`items.${item.key}.description`)}
+            </TimelineContent>
           </TimelineItem>
         ))}
       </Timeline>
