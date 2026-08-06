@@ -1,12 +1,9 @@
 "use client";
 
-import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
-import { buttonVariants } from "@/components/ui/button";
+import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { LocaleSwitcher } from "./locale-switcher";
+import { ThemeToggleButton } from "./theme-button";
 
 const navItems = {
   "/": {
@@ -19,36 +16,6 @@ const navItems = {
     name: "blog",
   },
 };
-
-const themeButtonClassName = cn(
-  buttonVariants({ variant: "ghost", size: "icon-sm" }),
-  "ml-auto",
-);
-
-function ThemeToggleButton() {
-  const [mounted, setMounted] = useState(false);
-  const { resolvedTheme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <span aria-hidden="true" className={themeButtonClassName} />;
-  }
-
-  const isDark = resolvedTheme === "dark";
-
-  return (
-    <AnimatedThemeToggler
-      theme={isDark ? "dark" : "light"}
-      onThemeChange={setTheme}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
-      title={`Switch to ${isDark ? "light" : "dark"} theme`}
-      className={themeButtonClassName}
-    />
-  );
-}
 
 export function Navbar() {
   const pathname = usePathname();
@@ -83,7 +50,10 @@ export function Navbar() {
               );
             })}
           </div>
-          <ThemeToggleButton />
+          <div className="flex min-w-0 flex-row ml-auto gap-2">
+            <LocaleSwitcher />
+            <ThemeToggleButton />
+          </div>
         </nav>
       </div>
     </aside>

@@ -1,5 +1,32 @@
 {
+    "metadata": {
+        "title": "May Rain",
+        "description": "一个关于技术、编程和生活的个人博客。"
+    },
+    "home": {
+        "title": "May Rain",
+        "metadata": {
+            "title": "主页",
+            "description": "欢迎来到我的个人博客，在这里我分享我对技术、编程和生活的思考。"
+        }
+    },
+    "profile": {
+        "metadata": {
+            "title": "个人主页",
+            "description": "了解更多关于我、我的背景和我的兴趣。"
+        }
+    },
+    "blog": {
+        "metadata": {
+            "title": "博客页面",
+            "description": "阅读我关于技术、编程和生活的最新博客文章。"
+        }
+    },
     "common": {
-        "title": "五月雨"
+        "title": "May Rain"
+    },
+    "locale-switcher": {
+        "shortLabel": "EN",
+        "label": "切换到英文"
     }
 }

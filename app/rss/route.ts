@@ -1,5 +1,5 @@
 import { getBlogPosts } from "@/app/[locale]/blog/utils";
-import { baseUrl } from "app/sitemap";
+import { siteUrl } from "@/lib/site";
 
 export async function GET() {
   let allBlogs = await getBlogPosts();
@@ -15,7 +15,7 @@ export async function GET() {
       (post) =>
         `<item>
           <title>${post.metadata.title}</title>
-          <link>${baseUrl}/blog/${post.slug}</link>
+          <link>${siteUrl}/blog/${post.slug}</link>
           <description>${post.metadata.summary || ""}</description>
           <pubDate>${new Date(
             post.metadata.publishedAt,
@@ -27,9 +27,9 @@ export async function GET() {
   const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
   <rss version="2.0">
     <channel>
-        <title>My Portfolio</title>
-        <link>${baseUrl}</link>
-        <description>This is my portfolio RSS feed</description>
+        <title>May Rain</title>
+        <link>${siteUrl}</link>
+        <description>May Rain a Personal Blog</description>
         ${itemsXml}
     </channel>
   </rss>`;

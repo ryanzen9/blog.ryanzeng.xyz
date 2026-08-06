@@ -1,22 +1,30 @@
 import { compilePostMDX } from "@/app/components/mdx";
 import { TocSidebar } from "@/app/components/sidebar";
-import { baseUrl } from "@/app/sitemap";
+import { getLocalizedUrl, siteUrl } from "@/lib/site";
+import { Metadata } from "next";
+import { getFormatter } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { formatDate, getBlogPosts } from "../utils";
+import { locale } from "next/root-params";
+import { getBlogPosts, parsePublishedAt, publishedDateFormat } from "../utils";
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();
+  const currentLocale = await locale(); // Ensure the locale is loaded before generating static params
 
   return posts.map((post) => ({
     slug: post.slug,
+    locale: currentLocale || "en-US", // Use the current locale or default to "en-US"
   }));
 }
 
-export async function generateMetadata({ params }) {
-  const { slug } = await params;
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const path = `/${locale}/blog/${slug}`;
   let post = getBlogPosts().find((post) => post.slug === slug);
+  const canonicalUrl = getLocalizedUrl(locale, path);
+
   if (!post) {
-    return;
+    notFound();
   }
 
   let {
@@ -25,19 +33,27 @@ export async function generateMetadata({ params }) {
     summary: description,
     image,
   } = post.metadata;
+
   let ogImage = image
     ? image
-    : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
+    : `${siteUrl}/og?title=${encodeURIComponent(title)}`;
 
   return {
     title,
     description,
+
+    alternates: {
+      canonical: canonicalUrl,
+    },
+
     openGraph: {
       title,
       description,
       type: "article",
       publishedTime,
-      url: `${baseUrl}/blog/${post.slug}`,
+      modifiedTime: publishedTime,
+      locale: locale === "en-US" ? "en_US" : "zh_CN",
+      url: canonicalUrl,
       images: [
         {
           url: ogImage,
@@ -54,14 +70,18 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Blog({ params }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   let post = getBlogPosts().find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
   }
 
+  const format = await getFormatter();
+
   const { content, toc } = await compilePostMDX(post.content);
+
+  const path = `/${locale}/blog/${slug}`;
 
   return (
     <section className="relative">
@@ -73,16 +93,18 @@ export default async function Blog({ params }) {
             "@context": "https://schema.org",
             "@type": "BlogPosting",
             headline: post.metadata.title,
+            inLanguage: "zh_CN",
             datePublished: post.metadata.publishedAt,
             dateModified: post.metadata.publishedAt,
             description: post.metadata.summary,
             image: post.metadata.image
-              ? `${baseUrl}${post.metadata.image}`
-              : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
+              ? `${siteUrl}${post.metadata.image}`
+              : `${siteUrl}/og?title=${encodeURIComponent(post.metadata.title)}`,
+            url: `${siteUrl}${path}`,
             author: {
               "@type": "Person",
-              name: "My Portfolio",
+              name: "Ryan Zeng",
+              url: "https://github.com/ryanzen9",
             },
           }),
         }}
@@ -92,7 +114,10 @@ export default async function Blog({ params }) {
       </h1>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm">
         <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.publishedAt)}
+          {format.dateTime(
+            parsePublishedAt(post.metadata.publishedAt),
+            publishedDateFormat,
+          )}
         </p>
       </div>
       {/* <TableOfContents items={toc} /> */}

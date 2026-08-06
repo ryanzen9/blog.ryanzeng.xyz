@@ -1,10 +1,29 @@
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import type { AppLocale } from "@/i18n/routing";
+import { createPageMetadata } from "@/lib/seo";
 import { BlogPosts } from "app/components/posts";
+import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { locale } from "next/root-params";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("home.metadata");
+  const currentLocale = (await locale()) as AppLocale;
+  const title = t("title");
+  const description = t("description");
+  const path = `/`;
+
+  return createPageMetadata({
+    locale: currentLocale,
+    path,
+    title,
+    description,
+  });
+}
 
 export default async function Page() {
-  const t = await getTranslations("common");
+  const t = await getTranslations("home");
   return (
     <section>
       <h1 className="mb-4 text-2xl font-semibold tracking-tighter">

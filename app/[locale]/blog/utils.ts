@@ -55,38 +55,23 @@ export function getBlogPosts() {
   );
 }
 
-export function formatDate(date: string, includeRelative = false) {
-  let currentDate = new Date();
-  if (!date.includes("T")) {
-    date = `${date}T00:00:00`;
-  }
-  let targetDate = new Date(date);
+export function parsePublishedAt(value: string) {
+  const normalizedValue = value.includes("T")
+    ? value
+    : `${value}T00:00:00.000Z`;
 
-  let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
-  let monthsAgo = currentDate.getMonth() - targetDate.getMonth();
-  let daysAgo = currentDate.getDate() - targetDate.getDate();
+  const date = new Date(normalizedValue);
 
-  let formattedDate = "";
-
-  if (yearsAgo > 0) {
-    formattedDate = `${yearsAgo}y ago`;
-  } else if (monthsAgo > 0) {
-    formattedDate = `${monthsAgo}mo ago`;
-  } else if (daysAgo > 0) {
-    formattedDate = `${daysAgo}d ago`;
-  } else {
-    formattedDate = "Today";
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid publishedAt value: ${value}`);
   }
 
-  let fullDate = targetDate.toLocaleString("en-us", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  if (!includeRelative) {
-    return fullDate;
-  }
-
-  return `${fullDate} (${formattedDate})`;
+  return date;
 }
+
+export const publishedDateFormat = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+} as const;

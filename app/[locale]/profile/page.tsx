@@ -1,14 +1,25 @@
+import type { AppLocale } from "@/i18n/routing";
 import { fetchGitHubUser } from "@/lib/github";
+import { createPageMetadata } from "@/lib/seo";
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { locale } from "next/root-params";
 import { CareerLine } from "./career-line";
 import { ContributionsCalendar } from "./contributions-calendar";
 import { ProfileHero } from "./profile-hero";
 import { TechStack } from "./tech-stack";
 
-export const metadata = {
-  title: "Ryan Zeng",
-  description:
-    "Software engineer building production systems across web, data, infrastructure, and AI-assisted workflows.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const currentLocale = ((await locale()) as AppLocale) ?? "en-US";
+  const t = await getTranslations("profile.metadata");
+
+  return createPageMetadata({
+    title: t("title"),
+    description: t("description"),
+    locale: currentLocale,
+    path: `/profile`,
+  });
+}
 
 async function getProfile() {
   try {
@@ -21,9 +32,10 @@ async function getProfile() {
 
 export default async function Page() {
   const profile = await getProfile();
+  const currentLocale = (await locale()) ?? "en-US";
 
   return (
-    <section lang="en" className="space-y-14 sm:space-y-16">
+    <section lang={currentLocale} className="space-y-14 sm:space-y-16">
       <ProfileHero profile={profile} />
 
       {/* 暂时隐藏

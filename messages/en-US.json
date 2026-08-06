@@ -1,0 +1,32 @@
+{
+    "metadata": {
+        "title": "May Rain",
+        "description": "A personal blog about technology, programming, and life."
+    },
+    "common": {
+        "title": "May Rain"
+    },
+    "home": {
+        "title": "May Rain",
+        "metadata": {
+            "title": "Home Page",
+            "description": "Welcome to my personal blog, where I share my thoughts on technology, programming, and life."
+        }
+    },
+    "profile": {
+        "metadata": {
+            "title": "Profile Page",
+            "description": "Learn more about me, my background, and my interests."
+        }
+    },
+    "blog": {
+        "metadata": {
+            "title": "Blog Page",
+            "description": "Read my latest blog posts on technology, programming, and life."
+        }
+    },
+    "locale-switcher": {
+        "shortLabel": "中",
+        "label": "Switch to Chinese"
+    }
+}
