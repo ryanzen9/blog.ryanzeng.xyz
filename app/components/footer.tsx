@@ -20,8 +20,9 @@ function ArrowIcon() {
 }
 
 export default function Footer() {
-  const text = "推荐这篇文章";
-  const shareUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
+  //   const text = "推荐这篇文章";
+  //   const shareUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
+  const shareUrl = `https://x.com/intent/post`;
 
   const t = useTranslations("accessibility");
 
