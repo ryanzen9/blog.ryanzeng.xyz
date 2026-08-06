@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  next-themes@0.4.6: e56fd475acba36afc317418ffaa4be53c7a51a689f9b3a91adca3d0cfce55520
+  next-themes@0.4.6: 76593b85fe1ba85ceb4fd1725d5c9ceff76dabf4675b2b0a39c509ab00f917bc
 
 importers:
 
@@ -67,7 +67,7 @@ importers:
         version: 6.0.0(@types/react@18.2.55)(react@19.2.3)
       next-themes:
         specifier: ^0.4.6
-        version: 0.4.6(patch_hash=e56fd475acba36afc317418ffaa4be53c7a51a689f9b3a91adca3d0cfce55520)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        version: 0.4.6(patch_hash=76593b85fe1ba85ceb4fd1725d5c9ceff76dabf4675b2b0a39c509ab00f917bc)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       postcss:
         specifier: ^8.4.35
         version: 8.4.35
@@ -4604,7 +4604,7 @@ snapshots:
       - '@types/react'
       - supports-color
 
-  next-themes@0.4.6(patch_hash=e56fd475acba36afc317418ffaa4be53c7a51a689f9b3a91adca3d0cfce55520)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  next-themes@0.4.6(patch_hash=76593b85fe1ba85ceb4fd1725d5c9ceff76dabf4675b2b0a39c509ab00f917bc)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
