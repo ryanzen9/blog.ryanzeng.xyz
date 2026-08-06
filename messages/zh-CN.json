@@ -28,5 +28,10 @@
     "locale-switcher": {
         "shortLabel": "EN",
         "label": "切换到英文"
+    },
+    "accessibility": {
+        "rss": "RSS 订阅",
+        "github": "GitHub 主页",
+        "x": "分享至X"
     }
 }

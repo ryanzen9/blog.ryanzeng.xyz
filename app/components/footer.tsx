@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+import type { MouseEvent } from "react";
 function ArrowIcon() {
   return (
     <svg
@@ -19,15 +21,18 @@ function ArrowIcon() {
 
 export default function Footer() {
   const text = "推荐这篇文章";
-  const url = window.location.href;
+  const shareUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
 
-  const shareUrl =
-    `https://x.com/intent/post?text=${encodeURIComponent(text)}` +
-    `&url=${encodeURIComponent(url)}`;
+  const t = useTranslations("accessibility");
+
+  function addCurrentUrl(event: MouseEvent<HTMLAnchorElement>) {
+    event.currentTarget.href = `${shareUrl}&url=${encodeURIComponent(window.location.href)}`;
+  }
+
   return (
     <footer className="mb-16">
       <ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
-        <li>
+        <li aria-label="rss" aria-description={t("rss")}>
           <a
             className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
             rel="noopener noreferrer"
@@ -38,7 +43,7 @@ export default function Footer() {
             <p className="ml-2 h-7">rss</p>
           </a>
         </li>
-        <li>
+        <li aria-label="github" aria-description={t("github")}>
           <a
             className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
             rel="noopener noreferrer"
@@ -49,12 +54,13 @@ export default function Footer() {
             <p className="ml-2 h-7">github</p>
           </a>
         </li>
-        <li>
+        <li aria-label="x" aria-description={t("x")}>
           <a
             className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
             rel="noopener noreferrer"
             target="_blank"
             href={shareUrl}
+            onClick={addCurrentUrl}
           >
             <ArrowIcon />
 

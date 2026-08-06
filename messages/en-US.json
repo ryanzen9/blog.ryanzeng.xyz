@@ -28,5 +28,10 @@
     "locale-switcher": {
         "shortLabel": "中",
         "label": "Switch to Chinese"
+    },
+    "accessibility": {
+        "rss": "RSS feed",
+        "github": "GitHub profile",
+        "x": "Share on X"
     }
 }
