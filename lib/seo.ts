@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { routing, type AppLocale } from "@/i18n/routing";
 
-import { getLocalizedUrl } from "@/lib/site";
+import { getAbsoluteUrl, getLocalizedUrl } from "@/lib/site";
 
 type PageMetadataInput = {
   locale: AppLocale;
@@ -18,6 +18,8 @@ export function createPageMetadata({
   description,
 }: PageMetadataInput): Metadata {
   const url = getLocalizedUrl(locale, path);
+
+  const defaultImages = getAbsoluteUrl("/images/logo.jpg");
 
   const languages = Object.fromEntries(
     routing.locales.map((l) => {
@@ -41,12 +43,18 @@ export function createPageMetadata({
       siteName: "May Rain",
       locale: locale === "en-US" ? "en_US" : "zh_CN",
       type: "website",
+      images: [
+        {
+          url: defaultImages,
+        },
+      ],
     },
 
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [defaultImages],
     },
   };
 }
