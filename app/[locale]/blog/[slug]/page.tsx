@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const { slug, locale } = await params;
-  const path = `/${locale}/blog/${slug}`;
+  const path = `/blog/${slug}`;
   let post = getBlogPosts().find((post) => post.slug === slug);
   const canonicalUrl = getLocalizedUrl(locale, path);
 
