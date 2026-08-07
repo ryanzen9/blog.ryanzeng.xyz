@@ -73,7 +73,7 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
           {t("links.github")} ↗
         </a>
         <a
-          href="https://twitter.com/ryanzen9"
+          href="#"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-muted-foreground flex items-center gap-1"

@@ -1,16 +1,19 @@
 import { getBlogPosts } from "./[locale]/blog/utils";
+import { routes as appRouters } from "./route";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export default async function sitemap() {
+  const routes = Object.keys(appRouters).map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date().toISOString().split("T")[0],
+    priority: 0.7,
+  }));
+
   let blogs = getBlogPosts().map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: post.metadata.publishedAt,
-  }));
-
-  let routes = ["", "/blog"].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split("T")[0],
+    priority: 0.9,
   }));
 
   return [...routes, ...blogs];

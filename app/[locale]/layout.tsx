@@ -2,6 +2,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Meteors } from "@/components/ui/meteors";
 import { routing } from "@/i18n/routing";
+import { codeFont, proseFont, uiFont } from "@/lib/fonts";
 import { siteUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/react";
@@ -12,7 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { locale } from "next/root-params";
 import Footer from "../components/footer";
 import { Navbar } from "../components/nav";
-import { codeFont, proseFont, uiFont } from "../fonts";
 import "../global.css";
 
 export async function generateMetadata(): Promise<Metadata> {

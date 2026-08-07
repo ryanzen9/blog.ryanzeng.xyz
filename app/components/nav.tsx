@@ -1,21 +1,10 @@
 "use client";
 
+import { routes } from "@/app/route";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { LocaleSwitcher } from "./locale-switcher";
 import { ThemeToggleButton } from "./theme-button";
-
-const navItems = {
-  "/": {
-    name: "home",
-  },
-  "/profile": {
-    name: "profile",
-  },
-  "/blog": {
-    name: "blog",
-  },
-};
 
 export function Navbar() {
   const pathname = usePathname();
@@ -28,7 +17,7 @@ export function Navbar() {
           id="nav"
         >
           <div className="flex min-w-0 flex-row items-center">
-            {Object.entries(navItems).map(([path, { name }]) => {
+            {Object.entries(routes).map(([path, { name }]) => {
               const isActive =
                 path === "/"
                   ? pathname === path
