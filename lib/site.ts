@@ -5,6 +5,8 @@ export const siteUrl = (
   process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"
 ).replace(/\/$/, "");
 
+export const blogLang = "zh-CN";
+
 /**
  * 生成不带 locale 的全局资源 URL。
  *

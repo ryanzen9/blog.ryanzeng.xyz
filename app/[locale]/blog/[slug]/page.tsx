@@ -1,6 +1,6 @@
 import { compilePostMDX } from "@/app/components/mdx";
 import { TocSidebar } from "@/app/components/sidebar";
-import { getLocalizedUrl, siteUrl } from "@/lib/site";
+import { blogLang, getAbsoluteUrl, siteUrl } from "@/lib/site";
 import { Metadata } from "next";
 import { getFormatter } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -19,9 +19,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const { slug, locale } = await params;
-  const path = `/blog/${slug}`;
+  const path = `/${blogLang}/blog/${slug}`;
   let post = getBlogPosts().find((post) => post.slug === slug);
-  const canonicalUrl = getLocalizedUrl(locale, path);
+  const canonicalUrl = getAbsoluteUrl(path);
 
   if (!post) {
     notFound();
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       type: "article",
       publishedTime,
       modifiedTime: publishedTime,
-      locale: locale === "en-US" ? "en_US" : "zh_CN",
+      locale: blogLang.replace("-", "_"),
       url: canonicalUrl,
       images: [
         {
@@ -60,6 +60,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
         },
       ],
     },
+
     twitter: {
       card: "summary_large_image",
       title,
@@ -70,7 +71,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 export default async function Blog({ params }) {
-  const { slug, locale } = await params;
+  const { slug } = await params;
   let post = getBlogPosts().find((post) => post.slug === slug);
 
   if (!post) {
@@ -81,7 +82,12 @@ export default async function Blog({ params }) {
 
   const { content, toc } = await compilePostMDX(post.content);
 
-  const path = `/${locale}/blog/${slug}`;
+  const path = `/${blogLang}/blog/${slug}`;
+  const url = getAbsoluteUrl(path);
+
+  const image = post.metadata.image
+    ? `${siteUrl}${post.metadata.image}`
+    : `${siteUrl}/og?title=${encodeURIComponent(post.metadata.title)}`;
 
   return (
     <section className="relative">
@@ -92,20 +98,20 @@ export default async function Blog({ params }) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
-            headline: post.metadata.title,
-            inLanguage: "zh_CN",
-            datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
-            description: post.metadata.summary,
-            image: post.metadata.image
-              ? `${siteUrl}${post.metadata.image}`
-              : `${siteUrl}/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${siteUrl}${path}`,
             author: {
               "@type": "Person",
               name: "Ryan Zeng",
               url: "https://github.com/ryanzen9",
             },
+
+            headline: post.metadata.title,
+            datePublished: post.metadata.publishedAt,
+            dateModified: post.metadata.publishedAt,
+            description: post.metadata.summary,
+
+            inLanguage: blogLang,
+            image: image,
+            url: url,
           }),
         }}
       />
@@ -123,7 +129,9 @@ export default async function Blog({ params }) {
       {/* <TableOfContents items={toc} /> */}
       <TocSidebar items={toc} />
 
-      <article className="prose font-prose">{content}</article>
+      <article className="prose font-prose" lang={blogLang}>
+        {content}
+      </article>
     </section>
   );
 }

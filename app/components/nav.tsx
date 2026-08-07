@@ -1,6 +1,6 @@
 "use client";
 
-import { routes } from "@/app/route";
+import { routes } from "@/app/routes";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { LocaleSwitcher } from "./locale-switcher";

@@ -1,5 +1,5 @@
 import { getBlogPosts } from "@/app/[locale]/blog/utils";
-import { siteUrl } from "@/lib/site";
+import { blogLang, siteUrl } from "@/lib/site";
 
 export async function GET() {
   let allBlogs = await getBlogPosts();
@@ -15,7 +15,7 @@ export async function GET() {
       (post) =>
         `<item>
           <title>${post.metadata.title}</title>
-          <link>${siteUrl}/blog/${post.slug}</link>
+          <link>${siteUrl}/${blogLang}/blog/${post.slug}</link>
           <description>${post.metadata.summary || ""}</description>
           <pubDate>${new Date(
             post.metadata.publishedAt,

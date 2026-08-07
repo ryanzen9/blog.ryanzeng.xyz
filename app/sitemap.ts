@@ -1,5 +1,6 @@
+import { blogLang } from "@/lib/site";
 import { getBlogPosts } from "./[locale]/blog/utils";
-import { routes as appRouters } from "./route";
+import { routes as appRouters } from "./routes";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
@@ -11,7 +12,7 @@ export default async function sitemap() {
   }));
 
   let blogs = getBlogPosts().map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+    url: `${baseUrl}/${blogLang}/blog/${post.slug}`,
     lastModified: post.metadata.publishedAt,
     priority: 0.9,
   }));
