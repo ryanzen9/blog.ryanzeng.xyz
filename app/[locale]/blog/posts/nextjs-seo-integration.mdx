@@ -1,0 +1,127 @@
+---
+title: Next.js SEO 集成
+summary: 系统讲解如何在 Next.js 中做好 SEO：从搜索引擎的爬取、索引、排名机制讲起，对比 SSG、SSR、ISR、CSR 等渲染方式对 SEO 的影响，并给出优化步骤。
+publishedAt: '2026-08-07'
+---
+
+## SEO 是什么？
+
+**SEO（Search Engine Optimization，搜索引擎优化）** 是指通过技术手段和内容策略来提升网站在搜索引擎（如 Google、Bing、百度）中自然排名的一套方法论。它的核心目标很简单：**让用户搜到你**。
+
+## 搜索引擎处理界面的流程
+
+搜索引擎的工作流程大致可以分为三个阶段：**爬取（Crawling）**、**索引（Indexing）** 和 **排名（Ranking）**。
+
+1. **爬取**：搜索引擎的爬虫（如 Googlebot）会沿着链接不断发现网页，抓取页面上的文本、图片、脚本等资源。如果网站加载慢、资源被屏蔽或链接结构混乱，爬虫就无法高效获取内容。
+2. **索引**：抓取到的内容会被整理和存储到搜索引擎的数据库中。这一阶段需要页面有清晰的标题、描述、结构化数据等，帮助搜索引擎理解网页的主题和关键信息。
+3. **排名**：当用户输入搜索词时，搜索引擎会从索引库中挑选最相关、最有价值的页面，按照数百种算法因子排序后展示。排名的依据包括内容质量、关键词匹配、用户体验、页面速度、移动端适配等。
+
+具体来说，爬虫会先遍历站内链接来**发现**页面，可抓取的入口包括但不限于：`<a href>` 超链接、`sitemap.xml` 中的条目以及站内导航等。随后爬虫通过请求 URL **访问**网页，获取页面上的结构化数据与各类资源，渲染 HTML 后解析内容，最终**建立索引数据**。
+
+## Next.js 为什么比普通 SPA 更容易做好 SEO？
+
+Next.js 默认提供了一组强大的 SEO 功能，包括服务端渲染（SSR）、静态生成（SSG）和元数据 API，能让搜索引擎快速抓取和索引页面。
+
+- **SSR 生成，SSG 生成**：直接返回 HTML 标签，利于搜索引擎抓取渲染
+- **metadata、sitemap、robots 等 API**：提供 DX 优化
+- **图片、字体、路由等缓存**：提升网站加载速度
+
+> 查询 [Google Search Console](https://search.google.com/search-console) 分析网站的 SEO 情况。
+
+- **SSG 静态生成**：在构建时预渲染成静态 HTML，无需服务器实时处理，页面响应快，利于爬虫抓取，适合内容相对固定的页面。只要页面没有使用必须按请求执行的动态 API，并且数据能够被缓存，Next.js 就可能静态生成页面。访问时直接返回已经生成的页面。
+- **动态路由生成**：使用 `generateStaticParams` 构建阶段预先生成动态路由界面。
+- **SSR 服务端渲染**：每次请求时生成 HTML，服务端根据请求情况生成 HTML 后返回给客户端。
+- **ISR 增量静态生成**：增量静态再生（ISR，Incremental Static Regeneration）在 SSG 基础上按需重新生成页面。设置 `revalidate` 后，页面在过期后重新请求最新数据。
+- **CSR（Client-Side Rendering，客户端渲染）**：更类似于 SPA 应用，是指页面内容在浏览器端通过 JavaScript 动态生成，搜索引擎爬虫抓取到的初始 HTML 较为空泛，因此 SEO 友好度较低，适合对实时交互要求高的页面。
+
+Next.js 配合不同渲染方式按需渲染，将 SSG、SSR、ISR 和 CSR 按页面特性灵活组合，在性能、实时性与 SEO 之间取得最佳平衡。
+
+## 如何做好 SEO？
+
+结合上一节提到的渲染策略，SEO 的落地主要围绕「让搜索引擎**看得懂、抓得快、评得高**」展开。以下是在 Next.js 中做好 SEO 的几个关键步骤：
+
+### 1. 配置页面元数据（Metadata）
+
+每个页面都应提供独立且准确的 `<title>` 和 `<meta name="description">`。Next.js 的 Metadata API 支持静态导出，也支持根据路由参数动态生成：
+
+```tsx
+// app/blog/[slug]/page.tsx
+import type { Metadata } from 'next'
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const post = await getPost(params.slug)
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: [post.coverImage],
+    },
+  }
+}
+```
+
+- **title 与 description**：保持唯一并与内容强相关，description 建议控制在 150 字以内，提炼页面核心价值，直接影响搜索结果中的点击率（CTR）；
+- **Open Graph / Twitter Card**：控制链接在社交平台分享时的预览效果，间接提升流量与曝光。
+
+### 2. 添加结构化数据（JSON-LD）
+
+通过 `<script type="application/ld+json">` 注入结构化数据，帮助搜索引擎理解页面实体（文章、产品、FAQ 等），有机会获得富媒体摘要（Rich Snippets），让结果在搜索页中更醒目：
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Next.js SEO 优化指南",
+  "datePublished": "2026-08-07"
+}
+```
+
+### 3. 配置 sitemap.xml 与 robots.txt
+
+在 `app/` 目录下导出 `sitemap()` 与 `robots()`，Next.js 会在构建时自动生成对应文件，帮助爬虫快速发现页面并明确抓取范围：
+
+```tsx
+// app/sitemap.ts
+export default function sitemap() {
+  return [
+    { url: 'https://example.com', lastModified: new Date() },
+    { url: 'https://example.com/blog', lastModified: new Date() },
+  ]
+}
+```
+
+### 4. 语义化 HTML 与清晰的标题层级
+
+- 每个页面只保留一个 `h1`，标题按 h1 → h2 → h3 逐级递进，帮助搜索引擎理解内容结构；
+- 使用 `article`、`nav`、`aside` 等语义化标签划分内容区块，比满屏的 `div` 更利于索引。
+
+### 5. 优化图片与字体
+
+- 使用 `next/image` 自动生成响应式尺寸、转换为 WebP 并启用懒加载，减小 LCP（最大内容绘制）时间；
+- 使用 `next/font` 自托管字体，避免字体加载引起的布局偏移（CLS）。
+
+### 6. 提升 Core Web Vitals 核心指标
+
+Google 已将用户体验纳入排名算法，重点关注以下三个指标：
+
+| 指标 | 含义 | 建议阈值 |
+| --- | --- | --- |
+| LCP | 最大内容绘制，衡量加载速度 | < 2.5s |
+| INP | 交互到下一次绘制的延迟 | < 200ms |
+| CLS | 累积布局偏移，衡量视觉稳定性 | < 0.1 |
+
+配合上一节的 SSG / ISR 预渲染策略，让首屏 HTML 快速返回客户端，是优化 LCP 最直接的手段。
+
+### 7. 构建合理的内部链接
+
+站内导航、相关推荐、面包屑（Breadcrumb）等内部链接能帮助爬虫持续发现新页面、传递页面权重，同时改善用户浏览体验。
+
+### 8. 持续监测与迭代
+
+- 通过 **Google Search Console** 提交 sitemap，查看收录情况与搜索表现，及时修复抓取错误；
+- 用 **PageSpeed Insights / Lighthouse** 定期检查性能得分与 Core Web Vitals；
+- 结合 **Analytics** 数据分析关键词与页面的实际表现，持续迭代内容。
+
+> SEO 不是一次性工作，而是一个「内容 + 技术 + 数据反馈」持续优化的循环。
