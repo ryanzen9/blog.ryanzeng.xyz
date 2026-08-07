@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { GitHubUser } from "@/lib/github";
+import { GithubIcon, GoogleGmail, Twitter } from "@dev.icons/react/mono";
 import { useTranslations } from "next-intl";
 
 const GITHUB_USERNAME = "ryanzen9";
@@ -57,17 +58,28 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
       <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
         <a
           href="mailto:rubyceng0326@gmail.com"
-          className="underline decoration-border underline-offset-4 transition-colors hover:text-muted-foreground"
+          className="hover:text-muted-foreground flex items-center gap-1"
         >
+          <GoogleGmail size={12} />
           {t("links.email")} ↗
         </a>
         <a
           href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline decoration-border underline-offset-4 transition-colors hover:text-muted-foreground"
+          className="hover:text-muted-foreground flex items-center gap-1"
         >
+          <GithubIcon size={12} />
           {t("links.github")} ↗
+        </a>
+        <a
+          href="https://twitter.com/ryanzen9"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-muted-foreground flex items-center gap-1"
+        >
+          <Twitter size={12} />
+          {t("links.x")} ↗
         </a>
       </div>
     </header>

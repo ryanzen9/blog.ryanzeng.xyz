@@ -31,7 +31,8 @@
             },
             "links": {
                 "email": "Email",
-                "github": "GitHub"
+                "github": "GitHub",
+                "x": "X"
             }
         },
         "techStack": {
