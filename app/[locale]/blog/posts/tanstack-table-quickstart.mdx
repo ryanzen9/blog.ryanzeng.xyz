@@ -222,7 +222,7 @@ TanStack Table 提供三种列类型，分别适用于不同场景：
 
 > **Tip**：尽量让 accessor 保持**原始、有语义**的数据值（如时间戳、状态码），再通过 `cell` 转换成 Badge、货币、日期等 UI 表现。这样排序、过滤以及服务端查询的逻辑都更稳定，UI 变化也不会污染数据层。
 
-> 列定义详见：<https://tanstack.com/table/latest/docs/guide/column-defs>；V9 中 `features` 是传入 `useTable` 的功能数组，`stockFeatures` 包含全部内置功能，也可按需组合（如 `[sorting, pagination]`）。
+> [TanStack Table 列定义文档](https://tanstack.com/table/latest/docs/guide/column-defs)；V9 中 `features` 是传入 `useTable` 的功能数组，`stockFeatures` 包含全部内置功能，也可按需组合（如 `[sorting, pagination]`）。
 
 最简单的写法是直接声明 `ColumnDef` 数组：
 
