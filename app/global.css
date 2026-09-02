@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 ::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
+  background-color: var(--foreground);
+  color: var(--background);
 }
 
 :root {
@@ -37,6 +37,7 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+  --signal: oklch(0.63 0.17 145);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -72,12 +73,9 @@
 }
 
 .prose .anchor {
-  @apply absolute invisible no-underline;
-
-  margin-left: -1em;
+  @apply absolute invisible text-muted-foreground no-underline;
+  margin-left: -1.25em;
   padding-right: 0.5em;
-  width: 80%;
-  max-width: 700px;
   cursor: pointer;
 }
 
@@ -86,11 +84,11 @@
 }
 
 .prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  @apply underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground;
 }
 
 .prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
+  @apply text-muted-foreground;
   content: "#";
 }
 
@@ -99,11 +97,11 @@
 }
 
 .prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+  @apply my-6 overflow-x-auto rounded-lg border border-border bg-muted/50 px-4 py-4 text-sm;
 }
 
 .prose code {
-  @apply px-1 py-0.5 rounded-lg;
+  @apply rounded-md bg-muted px-1.5 py-0.5 font-mono text-[0.9em];
 }
 
 .prose pre code {
@@ -128,23 +126,24 @@
 }
 
 .prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
+  @apply my-5 text-foreground/85;
+  line-height: 1.8;
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+  @apply mb-4 mt-12 text-4xl font-medium tracking-tight;
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply mb-3 mt-12 text-2xl font-medium tracking-tight;
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply mb-3 mt-9 text-xl font-medium tracking-tight;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
+  @apply mb-2 mt-8 text-lg font-medium tracking-tight;
 }
 
 .prose h1,
@@ -162,17 +161,36 @@
 }
 
 .prose ul {
-  @apply list-disc pl-6;
+  @apply my-5 list-disc pl-6 text-foreground/85;
 }
 
 .prose ol {
-  @apply list-decimal pl-6;
+  @apply my-5 list-decimal pl-6 text-foreground/85;
+}
+
+.prose li {
+  @apply my-2 pl-1;
+  line-height: 1.75;
+}
+
+.prose blockquote {
+  @apply my-7 border-l-2 border-foreground pl-5 text-foreground/75;
+}
+
+.prose table {
+  @apply my-7 w-full border-collapse text-left text-sm;
+}
+
+.prose th {
+  @apply border-b border-border px-3 py-2 font-medium;
+}
+
+.prose td {
+  @apply border-b border-border px-3 py-2 text-foreground/80;
 }
 
 .prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
-  margin-bottom: 1.25em !important;
+  margin-top: 0 !important;
 }
 
 pre::-webkit-scrollbar {
@@ -206,7 +224,7 @@ table {
 @theme inline {
   --font-sans: var(--font-ui-source);
   --font-heading: var(--font-ui-source);
-  --font-prose: var(--font-prose-source);
+  --font-prose: var(--font-ui-source);
   --font-mono: var(--font-code-source);
 
   --color-sidebar-ring: var(--sidebar-ring);
@@ -223,6 +241,7 @@ table {
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
+  --color-signal: var(--signal);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
@@ -315,6 +334,7 @@ table {
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+  --signal: oklch(0.72 0.17 145);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -336,6 +356,7 @@ table {
   }
   body {
     @apply bg-background text-foreground;
+    text-rendering: optimizeLegibility;
   }
   html {
     @apply font-sans;

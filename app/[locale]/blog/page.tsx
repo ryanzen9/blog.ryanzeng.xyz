@@ -1,5 +1,4 @@
 import { BlogPosts } from "@/app/components/posts";
-import { Separator } from "@/components/ui/separator";
 import type { AppLocale } from "@/i18n/routing";
 import { createPageMetadata } from "@/lib/seo";
 import { Metadata } from "next";
@@ -21,11 +20,15 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   const t = await getTranslations("blog");
   return (
-    <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
-        {t("metadata.title")}
-      </h1>
-      <Separator className="my-4 data-horizontal:w-4/5" />
+    <section className="flex flex-col gap-12">
+      <header className="grid gap-5 lg:grid-cols-12 lg:items-end">
+        <h1 className="text-5xl font-semibold tracking-[-0.045em] sm:text-7xl lg:col-span-7">
+          {t("title")}
+        </h1>
+        <p className="max-w-md text-base leading-7 text-muted-foreground lg:col-span-5">
+          {t("description")}
+        </p>
+      </header>
       <BlogPosts />
     </section>
   );

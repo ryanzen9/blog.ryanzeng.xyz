@@ -35,7 +35,7 @@ export default async function Page() {
   const currentLocale = (await locale()) ?? "en-US";
 
   return (
-    <section lang={currentLocale} className="space-y-14 sm:space-y-16">
+    <section lang={currentLocale} className="flex flex-col gap-16 sm:gap-24">
       <ProfileHero profile={profile} />
 
       {/* 暂时隐藏

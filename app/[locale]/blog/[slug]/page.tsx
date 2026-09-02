@@ -90,7 +90,7 @@ export default async function Blog({ params }) {
     : `${siteUrl}/og?title=${encodeURIComponent(post.metadata.title)}`;
 
   return (
-    <section className="relative">
+    <section className="relative mx-auto max-w-3xl">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -115,21 +115,28 @@ export default async function Blog({ params }) {
           }),
         }}
       />
-      <h1 className="title font-semibold text-2xl tracking-tighter">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+      <header className="mb-10 border-b border-border pb-8 sm:mb-12 sm:pb-10">
+        <p className="mb-4 text-sm text-muted-foreground">May Rain / Writing</p>
+        <h1 className="title max-w-3xl text-4xl font-semibold tracking-[-0.045em] sm:text-6xl sm:leading-[1.05]">
+          {post.metadata.title}
+        </h1>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground">
+          {post.metadata.summary}
+        </p>
+        <time
+          dateTime={post.metadata.publishedAt}
+          className="mt-6 block font-mono text-xs tabular-nums text-muted-foreground"
+        >
           {format.dateTime(
             parsePublishedAt(post.metadata.publishedAt),
             publishedDateFormat,
           )}
-        </p>
-      </div>
+        </time>
+      </header>
       {/* <TableOfContents items={toc} /> */}
       <TocSidebar items={toc} />
 
-      <article className="prose font-prose" lang={blogLang}>
+      <article className="prose" lang={blogLang}>
         {content}
       </article>
     </section>

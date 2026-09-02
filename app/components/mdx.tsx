@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import React from "react";
+import remarkGfm from "remark-gfm";
 import { highlight } from "sugar-high";
 
 function Table({ data }) {
@@ -96,7 +97,7 @@ export async function compilePostMDX(source, customComponents = {}) {
     components: { ...components, ...customComponents },
     options: {
       mdxOptions: {
-        remarkPlugins: [createRemarkHeadings(toc)],
+        remarkPlugins: [remarkGfm, createRemarkHeadings(toc)],
       },
     },
   });

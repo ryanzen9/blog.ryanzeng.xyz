@@ -1,7 +1,3 @@
-"use client";
-
-import { LogoLoop, type LogoItem } from "@/components/LogoLoop";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { devIcons, type DevIconPair } from "@/lib/icons";
 import { useTranslations } from "next-intl";
@@ -65,79 +61,50 @@ const TECHNOLOGY_GROUPS: TechnologyGroup[] = [
   },
 ];
 
-function TechnologyBadge({ name, icons }: Technology) {
+function TechnologyItem({ name, icons }: Technology) {
   const MonoIcon = icons.mono;
-  const ColorIcon = icons.color;
 
   return (
-    <Badge
-      variant="outline"
-      className="h-9 gap-2 px-3 text-sm shadow-xs"
-    >
-      <MonoIcon
-        aria-hidden="true"
-        data-icon="inline-start"
-        className="group-hover/item:hidden"
-      />
-      <ColorIcon
-        aria-hidden="true"
-        data-icon="inline-start"
-        className="hidden group-hover/item:block"
-      />
-      {name}
-    </Badge>
+    <li className="flex items-center gap-2 text-sm text-foreground/80">
+      <MonoIcon aria-hidden="true" size={14} />
+      <span>{name}</span>
+    </li>
   );
 }
-
-function createLogoItems(technologies: Technology[]): LogoItem[] {
-  return technologies.map((technology) => ({
-    node: <TechnologyBadge {...technology} />,
-    title: technology.name,
-    ariaLabel: technology.name,
-  }));
-}
-
-const GROUPS_WITH_LOGOS = TECHNOLOGY_GROUPS.map((group) => ({
-  ...group,
-  logos: createLogoItems(group.technologies),
-}));
 
 export function TechStack() {
   const t = useTranslations("profile.techStack");
 
   return (
     <section aria-labelledby="technology-stack-title">
-      <div className="mb-6 flex flex-col gap-1.5">
+      <div className="mb-8 grid gap-3 sm:grid-cols-12 sm:items-end">
         <h2
           id="technology-stack-title"
-          className="text-2xl font-medium tracking-tight"
+          className="text-2xl font-medium tracking-tight sm:col-span-7"
         >
           {t("title")}
         </h2>
-        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+        <p className="max-w-xl text-sm leading-6 text-muted-foreground sm:col-span-5">
           {t("description")}
         </p>
       </div>
 
       <div className="flex flex-col">
-        {GROUPS_WITH_LOGOS.map((group, index) => (
+        {TECHNOLOGY_GROUPS.map((group, index) => (
           <div key={group.key}>
             {index > 0 && <Separator />}
-            <div className="grid gap-3 py-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-center sm:gap-4">
-              <h3 className="text-sm font-medium text-muted-foreground">
+            <div className="grid gap-4 py-6 sm:grid-cols-12 sm:gap-6">
+              <h3 className="text-sm font-medium text-muted-foreground sm:col-span-2">
                 {t(`groups.${group.key}.label`)}
               </h3>
-              <LogoLoop
-                logos={group.logos}
-                speed={36}
-                gap={12}
-                logoHeight={36}
-                pauseOnHover
-                scaleOnHover
-                fadeOut
-                fadeOutColor="var(--background)"
-                ariaLabel={t(`groups.${group.key}.ariaLabel`)}
-              />
+              <ul
+                className="grid grid-cols-2 gap-x-6 gap-y-3 sm:col-span-10 sm:grid-cols-3 lg:grid-cols-4"
+                aria-label={t(`groups.${group.key}.ariaLabel`)}
+              >
+                {group.technologies.map((technology) => (
+                  <TechnologyItem key={technology.name} {...technology} />
+                ))}
+              </ul>
             </div>
           </div>
         ))}

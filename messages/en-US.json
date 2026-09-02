@@ -8,10 +8,13 @@
     },
     "home": {
         "title": "May Rain",
-        "description1": "I'm Ryan.",
-        "description2": "I am a full stack developer(Maybe) from China.",
-        "description3": "An obsessive lover of black and green.",
-        "signature": "There's no reason for it, you've gotta go sometime.",
+        "eyebrow": "The personal site of Ryan Zeng",
+        "introduction": "I am a software engineer in China, building and operating products from interface to infrastructure.",
+        "currentFocus": "Currently bringing AI agents into practical workflows and contributing more actively to open source.",
+        "latest": {
+            "title": "Latest writing",
+            "description": "Field notes on web engineering, development tools, and the work of building software."
+        },
         "metadata": {
             "title": "Home Page",
             "description": "Welcome to my personal blog, where I share my thoughts on technology, programming, and life."
@@ -114,10 +117,18 @@
         }
     },
     "blog": {
+        "title": "Writing",
+        "description": "Notes on web engineering, tools, and the systems behind everyday work. Each piece starts with a concrete problem.",
         "metadata": {
             "title": "Blog Page",
             "description": "Read my latest blog posts on technology, programming, and life."
         }
+    },
+    "navigation": {
+        "label": "Primary navigation",
+        "home": "Home",
+        "profile": "Profile",
+        "blog": "Writing"
     },
     "locale-switcher": {
         "shortLabel": "中",

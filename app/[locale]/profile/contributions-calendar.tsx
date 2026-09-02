@@ -20,14 +20,14 @@ export function ContributionsCalendar() {
 
   return (
     <section aria-labelledby="github-contributions-title">
-      <div className="mb-6 flex flex-col gap-1.5">
+      <div className="mb-8 grid gap-3 sm:grid-cols-12 sm:items-end">
         <h2
           id="github-contributions-title"
-          className="text-2xl font-medium tracking-tight"
+          className="text-2xl font-medium tracking-tight sm:col-span-7"
         >
           {t("title")}
         </h2>
-        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+        <p className="max-w-xl text-sm leading-6 text-muted-foreground sm:col-span-5">
           {t.rich("description", {
             profile: (chunks) => (
               <a

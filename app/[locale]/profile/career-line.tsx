@@ -36,21 +36,21 @@ export function CareerLine() {
 
   return (
     <section aria-labelledby="career-timeline-title">
-      <div className="mb-6 flex flex-col gap-1.5">
+      <div className="mb-8 grid gap-3 sm:grid-cols-12 sm:items-end">
         <h2
           id="career-timeline-title"
-          className="text-2xl font-medium tracking-tight"
+          className="text-2xl font-medium tracking-tight sm:col-span-7"
         >
           {t("title")}
         </h2>
-        <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+        <p className="max-w-xl text-sm leading-6 text-muted-foreground sm:col-span-5">
           {t("description")}
         </p>
       </div>
 
       <Timeline
         defaultValue={careerTimeline[careerTimeline.length - 2].id}
-        className="w-full max-w-md mx-auto"
+        className="w-full max-w-2xl"
       >
         {careerTimelineItems.map((item) => (
           <TimelineItem

@@ -1,8 +1,7 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import { BlurFade } from "@/components/ui/blur-fade";
 import { Meteors } from "@/components/ui/meteors";
 import { routing } from "@/i18n/routing";
-import { codeFont, proseFont, uiFont } from "@/lib/fonts";
+import { codeFont, uiFont } from "@/lib/fonts";
 import { siteUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/react";
@@ -69,14 +68,13 @@ export default async function RootLayout({ children }) {
       className={cn(
         uiFont.variable,
         codeFont.variable,
-        proseFont.variable,
         "font-sans",
       )}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
       <NextIntlClientProvider>
-        <body className="antialiased max-w-2xl mx-4 mt-8 lg:mx-auto">
+        <body className="min-h-screen bg-background text-foreground antialiased">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -85,19 +83,15 @@ export default async function RootLayout({ children }) {
           >
             <Meteors number={30} />
 
-            <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-              <BlurFade delay={0.25 * 1} inView>
-                <Navbar />
-              </BlurFade>
-              <BlurFade delay={0.25 * 2} inView>
+            <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 sm:px-8">
+              <Navbar />
+              <main className="min-w-0 flex-1 py-12 sm:py-16 lg:py-20">
                 {children}
-              </BlurFade>
-              <BlurFade delay={0.25 * 3} inView>
-                <Footer />
-              </BlurFade>
+              </main>
+              <Footer />
               <Analytics />
               <SpeedInsights />
-            </main>
+            </div>
           </ThemeProvider>
         </body>
       </NextIntlClientProvider>

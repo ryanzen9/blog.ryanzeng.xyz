@@ -5,10 +5,13 @@
     },
     "home": {
         "title": "May Rain",
-        "description1": "I'm Ryan.",
-        "signature": "There's no reason for it, you've gotta go sometime.",
-        "description2": "我是来自于中国的一名软件全栈开发者(也许...",
-        "description3": "一名偏执的黑色和绿色爱好者.",
+        "eyebrow": "Ryan Zeng 的个人博客",
+        "introduction": "我是一名来自中国的软件工程师，构建并运维从界面到基础设施的完整产品。",
+        "currentFocus": "目前专注于把 AI Agent 带进真实工作流，同时持续参与开源项目。",
+        "latest": {
+            "title": "最近在写",
+            "description": "关于 Web 工程、开发工具与构建过程的实践笔记。"
+        },
         "metadata": {
             "title": "主页",
             "description": "欢迎来到我的个人博客，在这里我分享我对技术、编程和生活的思考."
@@ -111,10 +114,18 @@
         }
     },
     "blog": {
+        "title": "文章",
+        "description": "记录 Web 工程、工具链与日常系统实践。每篇文章都从一个具体问题开始。",
         "metadata": {
             "title": "博文",
             "description": "阅读我关于技术、编程和生活的最新博客文章。"
         }
+    },
+    "navigation": {
+        "label": "主要导航",
+        "home": "首页",
+        "profile": "关于",
+        "blog": "文章"
     },
     "common": {
         "title": "May Rain"

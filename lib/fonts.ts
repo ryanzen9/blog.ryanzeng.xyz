@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Noto_Serif_SC } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 export const uiFont = Geist({
   subsets: ["latin"],
@@ -10,11 +10,4 @@ export const codeFont = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-code-source",
   display: "swap",
-});
-
-export const proseFont = Noto_Serif_SC({
-  weight: ["400", "500", "600"],
-  variable: "--font-prose-source",
-  display: "swap",
-  preload: false,
 });

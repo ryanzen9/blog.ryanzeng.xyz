@@ -49,7 +49,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
 
       <aside className="absolute inset-y-0 left-[calc(100%+3rem)] hidden w-56 xl:block">
         <nav aria-label="文章目录" className="sticky top-8">
-          <p className="mb-3 text-xs font-medium tracking-widest text-muted-foreground uppercase">
+          <p className="mb-3 text-sm font-medium text-muted-foreground">
             文章目录
           </p>
           <TocLinks items={items} />
