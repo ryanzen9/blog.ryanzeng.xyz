@@ -13,9 +13,14 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
   const profileUrl = profile?.html_url ?? GITHUB_PROFILE_URL;
 
   return (
-    <header aria-labelledby="profile-title" className="grid gap-10 lg:grid-cols-12 lg:gap-8">
+    <header
+      aria-labelledby="profile-title"
+      className="grid gap-10 lg:grid-cols-12 lg:gap-8"
+    >
       <div className="lg:col-span-8">
-        <p className="mb-5 text-sm text-muted-foreground">{t("roleLocation")}</p>
+        <p className="mb-5 text-sm text-muted-foreground">
+          {t("roleLocation")}
+        </p>
         <div className="min-w-0 border-b border-border pb-8">
           <h1
             id="profile-title"
@@ -39,7 +44,7 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
         </div>
       </div>
 
-      <aside className="flex flex-col justify-between gap-8 border-l border-border pl-5 lg:col-span-4 lg:pl-8">
+      <aside className="flex self-start flex-col gap-6 border-l border-border pl-5 lg:col-span-4 lg:pl-8">
         <a
           href={profileUrl}
           target="_blank"

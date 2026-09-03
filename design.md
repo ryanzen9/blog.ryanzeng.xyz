@@ -1,6 +1,6 @@
 ---
 name: design-guidelines
-description: Design, build, or substantially improve a Personal website. Use this whenever work changes what users see, understand, choose, or do; improve product copy, information architecture, component selection, Geist compliance, hierarchy, layout, interaction, accessibility, responsive behavior, and loading, empty state, error, permission, billing, or destructive states. Trigger when designing, UX, UI, usability, flow, onboarding, settings, dashboards, building, improving, fixing, auditing, reviewing, polishing, simplifying, or production-ready requests. Not applicable to backend-only work with no user-visible effects, testing without published UI impact, telemetry-only work, documentation, or marketing content.
+description: Design, build, or significantly improve website design. Use whenever work changes what users see, understand, choose, or do; improve product component selection, Geist compliance, hierarchy, layout, interaction, accessibility, responsive behavior, and loading, empty state, error, permission, billing, or destructive states. Trigger on design, UX, UI, usability, flow, onboarding, setup, dashboard, build, improve, fix, audit, review, polish, or optimization requests. Not applicable to backend work with no user-visible impact, tests with no shipped UI impact, telemetry-only work, documentation, or marketing content.
 ---
 
 # 像 Vercel 一样设计网站

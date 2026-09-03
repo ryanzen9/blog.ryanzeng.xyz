@@ -65,11 +65,7 @@ export default async function RootLayout({ children }) {
   return (
     <html
       lang={curLocale}
-      className={cn(
-        uiFont.variable,
-        codeFont.variable,
-        "font-sans",
-      )}
+      className={cn(uiFont.variable, codeFont.variable, "font-sans")}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
