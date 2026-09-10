@@ -66,12 +66,6 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
 .prose .anchor {
   @apply absolute invisible text-muted-foreground no-underline;
   margin-left: -1.25em;
@@ -105,8 +99,7 @@
 }
 
 .prose pre code {
-  @apply font-mono;
-  @apply p-0;
+  @apply block rounded-none bg-transparent p-0 font-mono;
   border: initial;
   line-height: 1.5;
 }
@@ -153,7 +146,7 @@
 .prose h5,
 .prose h6 {
   @apply font-heading;
-  scroll-margin-top: 1rem;
+  scroll-margin-top: 100px;
 }
 
 .prose strong {

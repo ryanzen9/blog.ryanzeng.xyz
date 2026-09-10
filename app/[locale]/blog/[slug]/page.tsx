@@ -115,7 +115,7 @@ export default async function Blog({ params }) {
           }),
         }}
       />
-      <header className="mb-10 border-b border-border pb-8 sm:mb-12 sm:pb-10">
+      <header className="mb-10 pb-8 sm:mb-12 sm:pb-10 xl:border-b xl:border-border">
         <p className="mb-4 text-sm text-muted-foreground">May Rain / Writing</p>
         <h1 className="title max-w-3xl text-4xl font-semibold tracking-[-0.045em] sm:text-6xl sm:leading-[1.05]">
           {post.metadata.title}
@@ -133,7 +133,6 @@ export default async function Blog({ params }) {
           )}
         </time>
       </header>
-      {/* <TableOfContents items={toc} /> */}
       <TocSidebar items={toc} />
 
       <article className="prose" lang={blogLang}>
