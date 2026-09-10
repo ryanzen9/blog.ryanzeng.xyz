@@ -2,7 +2,24 @@
 
 import type { TocItem } from "@/app/[locale]/blog/toc";
 import LineSidebar, { type LineSidebarItem } from "@/components/LineSidebar";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
+
+const SCROLL_OFFSET = 100;
+const SCROLL_DURATION = 1000;
+
+function easeInOutQuart(progress: number) {
+  return progress < 0.5
+    ? 8 * progress * progress * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 4) / 2;
+}
 
 function useActiveHeading(items: TocItem[]) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -28,25 +45,22 @@ function useActiveHeading(items: TocItem[]) {
     const updateActiveHeading = () => {
       animationFrame = null;
 
-      // A heading becomes active shortly before it reaches the top of the
-      // viewport, which better matches the paragraph the reader is looking at.
-      const readingLine = Math.min(window.innerHeight * 0.25, 160);
-      let nextIndex = headings[0].index;
+      const detectionLine = window.scrollY + window.innerHeight / 3;
+      let nextIndex: number | null = null;
 
-      for (const heading of headings) {
-        if (heading.element.getBoundingClientRect().top > readingLine) {
+      for (let index = 0; index < headings.length; index += 1) {
+        const heading = headings[index];
+        const nextHeading = headings[index + 1];
+        const sectionTop =
+          heading.element.getBoundingClientRect().top + window.scrollY;
+        const sectionBottom = nextHeading
+          ? nextHeading.element.getBoundingClientRect().top + window.scrollY
+          : document.documentElement.scrollHeight;
+
+        if (detectionLine >= sectionTop && detectionLine < sectionBottom) {
+          nextIndex = heading.index;
           break;
         }
-
-        nextIndex = heading.index;
-      }
-
-      const isAtPageEnd =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight - 2;
-
-      if (isAtPageEnd) {
-        nextIndex = headings.at(-1)?.index ?? nextIndex;
       }
 
       setActiveIndex((currentIndex) =>
@@ -63,14 +77,10 @@ function useActiveHeading(items: TocItem[]) {
     scheduleUpdate();
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
-    window.addEventListener("hashchange", scheduleUpdate);
-    window.addEventListener("popstate", scheduleUpdate);
 
     return () => {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
-      window.removeEventListener("hashchange", scheduleUpdate);
-      window.removeEventListener("popstate", scheduleUpdate);
 
       if (animationFrame !== null) {
         window.cancelAnimationFrame(animationFrame);
@@ -81,39 +91,9 @@ function useActiveHeading(items: TocItem[]) {
   return [activeIndex, setActiveIndex] as const;
 }
 
-type TocLinksProps = {
-  items: readonly LineSidebarItem[];
-  activeIndex: number | null;
-  onItemClick: (index: number) => void;
-};
-
-function TocLinks({ items, activeIndex, onItemClick }: TocLinksProps) {
-  return (
-    <LineSidebar
-      items={items}
-      activeIndex={activeIndex}
-      onItemClick={onItemClick}
-      accentColor="var(--foreground)"
-      textColor="var(--muted-foreground)"
-      markerColor="var(--border)"
-      showIndex
-      showMarker
-      proximityRadius={100}
-      maxShift={30}
-      falloff="smooth"
-      markerLength={60}
-      markerGap={0}
-      tickScale={0.5}
-      scaleTick
-      itemGap={20}
-      fontSize={1.1}
-      smoothing={100}
-    />
-  );
-}
-
 export function TocSidebar({ items }: { items: TocItem[] }) {
   const [activeIndex, setActiveIndex] = useActiveHeading(items);
+  const scrollAnimationRef = useRef<number | null>(null);
 
   const sidebarItems = useMemo<LineSidebarItem[]>(
     () =>
@@ -125,11 +105,95 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
     [items],
   );
 
+  const cancelScrollAnimation = useCallback(() => {
+    if (scrollAnimationRef.current !== null) {
+      window.cancelAnimationFrame(scrollAnimationRef.current);
+      scrollAnimationRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    const cancelOnKeyboardNavigation = (event: KeyboardEvent) => {
+      if (
+        ["ArrowDown", "ArrowUp", "End", "Home", "PageDown", "PageUp"].includes(
+          event.key,
+        )
+      ) {
+        cancelScrollAnimation();
+      }
+    };
+
+    window.addEventListener("wheel", cancelScrollAnimation, { passive: true });
+    window.addEventListener("touchstart", cancelScrollAnimation, {
+      passive: true,
+    });
+    window.addEventListener("keydown", cancelOnKeyboardNavigation);
+
+    return () => {
+      cancelScrollAnimation();
+      window.removeEventListener("wheel", cancelScrollAnimation);
+      window.removeEventListener("touchstart", cancelScrollAnimation);
+      window.removeEventListener("keydown", cancelOnKeyboardNavigation);
+    };
+  }, [cancelScrollAnimation]);
+
   const handleItemClick = useCallback(
-    (index: number) => {
+    (
+      event: ReactMouseEvent<HTMLAnchorElement>,
+      index: number,
+      item: LineSidebarItem,
+    ) => {
+      event.preventDefault();
+
+      const target = document.getElementById(item.id);
+
+      if (!target) {
+        return;
+      }
+
+      cancelScrollAnimation();
       setActiveIndex(index);
+
+      const startY = window.scrollY;
+      const rawTargetY =
+        target.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
+      const maxScrollY = Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
+      const targetY = Math.min(Math.max(rawTargetY, 0), maxScrollY);
+      const distance = targetY - startY;
+
+      window.history.pushState(null, "", item.href);
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        window.scrollTo(0, targetY);
+        return;
+      }
+
+      let startedAt: number | null = null;
+
+      const runScrollAnimation = (timestamp: number) => {
+        startedAt ??= timestamp;
+
+        const elapsed = timestamp - startedAt;
+        const progress = Math.min(elapsed / SCROLL_DURATION, 1);
+        const easedProgress = easeInOutQuart(progress);
+
+        window.scrollTo(0, startY + distance * easedProgress);
+
+        if (progress < 1) {
+          scrollAnimationRef.current =
+            window.requestAnimationFrame(runScrollAnimation);
+        } else {
+          scrollAnimationRef.current = null;
+        }
+      };
+
+      scrollAnimationRef.current =
+        window.requestAnimationFrame(runScrollAnimation);
     },
-    [setActiveIndex],
+    [cancelScrollAnimation, setActiveIndex],
   );
 
   if (items.length === 0) {
@@ -138,7 +202,7 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
 
   return (
     <>
-      <details className="group mb-8 border-y border-border py-3 xl:hidden">
+      <details className="group mb-8 border-b border-border pb-4 xl:hidden">
         <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-medium">
           文章目录
           <span
@@ -150,27 +214,32 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
         </summary>
 
         <nav aria-label="文章目录" className="mt-3">
-          <TocLinks
-            items={sidebarItems}
-            activeIndex={activeIndex}
-            onItemClick={handleItemClick}
-          />
+          <ol className="flex flex-col gap-1">
+            {sidebarItems.map((item, index) => (
+              <li key={item.id}>
+                <a
+                  href={item.href}
+                  aria-current={activeIndex === index ? "location" : undefined}
+                  className={cn(
+                    "block border-l border-border py-1 pl-3 text-sm leading-5 text-muted-foreground transition-colors hover:border-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    activeIndex === index &&
+                      "border-foreground text-foreground",
+                  )}
+                  onClick={(event) => handleItemClick(event, index, item)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ol>
         </nav>
       </details>
 
-      <aside className="absolute inset-y-0 left-[calc(100%+3rem)] hidden w-56 xl:block">
-        <nav aria-label="文章目录" className="sticky top-8">
-          <p className="mb-3 text-sm font-medium text-muted-foreground">
-            文章目录
-          </p>
-
-          <TocLinks
-            items={sidebarItems}
-            activeIndex={activeIndex}
-            onItemClick={handleItemClick}
-          />
-        </nav>
-      </aside>
+      <LineSidebar
+        items={sidebarItems}
+        activeIndex={activeIndex}
+        onItemClick={handleItemClick}
+      />
     </>
   );
 }

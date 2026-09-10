@@ -67,7 +67,6 @@ export default async function RootLayout({ children }) {
       lang={curLocale}
       className={cn(uiFont.variable, codeFont.variable, "font-sans")}
       suppressHydrationWarning
-      data-scroll-behavior="smooth"
     >
       <NextIntlClientProvider>
         <body className="min-h-screen bg-background text-foreground antialiased">
