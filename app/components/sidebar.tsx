@@ -12,7 +12,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 
-const SCROLL_OFFSET = 64;
+const SCROLL_OFFSET = 32;
 const SCROLL_DURATION = 1000;
 
 function easeInOutQuart(progress: number) {
