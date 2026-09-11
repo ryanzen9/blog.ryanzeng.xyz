@@ -63,9 +63,10 @@ function useActiveHeading(items: TocItem[]) {
         }
       }
 
+      const scrollRange =
+        document.documentElement.scrollHeight - window.innerHeight;
       const isAtPageEnd =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight - 2;
+        scrollRange > 0 && window.scrollY >= scrollRange - 2;
 
       if (isAtPageEnd) {
         nextIndex = headings.at(-1)?.index ?? nextIndex;
