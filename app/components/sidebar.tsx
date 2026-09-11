@@ -12,7 +12,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 
-const SCROLL_OFFSET = 100;
+const SCROLL_OFFSET = 32;
 const SCROLL_DURATION = 1000;
 
 function easeInOutQuart(progress: number) {
@@ -61,6 +61,15 @@ function useActiveHeading(items: TocItem[]) {
           nextIndex = heading.index;
           break;
         }
+      }
+
+      const scrollRange =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const isAtPageEnd =
+        scrollRange > 0 && window.scrollY >= scrollRange - 2;
+
+      if (isAtPageEnd) {
+        nextIndex = headings.at(-1)?.index ?? nextIndex;
       }
 
       setActiveIndex((currentIndex) =>
@@ -143,6 +152,17 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
       index: number,
       item: LineSidebarItem,
     ) => {
+      const isModifiedClick =
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey;
+
+      if (isModifiedClick) {
+        return;
+      }
+
       event.preventDefault();
 
       const target = document.getElementById(item.id);

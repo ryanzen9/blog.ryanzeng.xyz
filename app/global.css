@@ -146,7 +146,7 @@
 .prose h5,
 .prose h6 {
   @apply font-heading;
-  scroll-margin-top: 100px;
+  scroll-margin-top: 32px;
 }
 
 .prose strong {
