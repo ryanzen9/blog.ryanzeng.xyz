@@ -1,4 +1,5 @@
 import { compilePostMDX } from "@/app/components/mdx";
+import { ReadingProgress } from "@/app/components/reading-progress";
 import { TocSidebar } from "@/app/components/sidebar";
 import { blogLang, getAbsoluteUrl, siteUrl } from "@/lib/site";
 import { Metadata } from "next";
@@ -90,7 +91,11 @@ export default async function Blog({ params }) {
     : `${siteUrl}/og?title=${encodeURIComponent(post.metadata.title)}`;
 
   return (
-    <section className="relative mx-auto max-w-3xl">
+    <section
+      id="article-reading-region"
+      className="relative mx-auto max-w-3xl"
+    >
+      <ReadingProgress targetId="article-reading-region" />
       <script
         type="application/ld+json"
         suppressHydrationWarning

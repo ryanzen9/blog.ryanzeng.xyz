@@ -119,6 +119,7 @@
     "blog": {
         "title": "Writing",
         "description": "Notes on web engineering, tools, and the systems behind everyday work. Each piece starts with a concrete problem.",
+        "readingProgress": "Article reading progress",
         "metadata": {
             "title": "Blog Page",
             "description": "Read my latest blog posts on technology, programming, and life."

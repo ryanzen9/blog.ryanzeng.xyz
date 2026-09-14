@@ -116,6 +116,7 @@
     "blog": {
         "title": "文章",
         "description": "记录 Web 工程、工具链与日常系统实践。每篇文章都从一个具体问题开始。",
+        "readingProgress": "文章阅读进度",
         "metadata": {
             "title": "博文",
             "description": "阅读我关于技术、编程和生活的最新博客文章。"
