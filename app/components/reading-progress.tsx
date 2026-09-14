@@ -61,6 +61,7 @@ export function ReadingProgress({ targetId }: ReadingProgressProps) {
 
       if (animationFrame.current !== null) {
         window.cancelAnimationFrame(animationFrame.current);
+        animationFrame.current = null;
       }
     };
   }, [targetId]);
