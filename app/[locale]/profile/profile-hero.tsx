@@ -1,3 +1,4 @@
+import { Reveal } from "@/app/components/reveal";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { GitHubUser } from "@/lib/github";
 import { ArrowUpRight, Mail } from "lucide-react";
@@ -17,7 +18,7 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
       aria-labelledby="profile-title"
       className="grid gap-10 lg:grid-cols-12 lg:gap-8"
     >
-      <div className="lg:col-span-8">
+      <Reveal preset="hero" className="lg:col-span-8">
         <p className="mb-5 text-sm text-muted-foreground">
           {t("roleLocation")}
         </p>
@@ -42,42 +43,48 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
           <p>{t("introduction.primary")}</p>
           <p>{t("introduction.currentFocus")}</p>
         </div>
-      </div>
+      </Reveal>
 
-      <aside className="flex self-start flex-col gap-6 border-l border-border pl-5 lg:col-span-4 lg:pl-8">
-        <a
-          href={profileUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={t("githubProfileAria", { name })}
-          className="w-fit rounded-full outline-none transition-opacity hover:opacity-75 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-        >
-          <Avatar className="size-20">
-            <AvatarImage src={profile?.avatar_url ?? ""} alt={name} />
-            <AvatarFallback>{name[0]}</AvatarFallback>
-          </Avatar>
-        </a>
-
-        <div className="flex flex-col items-start gap-3 text-sm">
-          <a
-            href="mailto:rubyceng0326@gmail.com"
-            className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <Mail aria-hidden="true" className="size-4" />
-            {t("links.email")}
-            <ArrowUpRight aria-hidden="true" className="size-3.5" />
-          </a>
+      <Reveal
+        preset="hero"
+        delay={0.1}
+        className="self-start lg:col-span-4"
+      >
+        <aside className="flex flex-col gap-6 border-l border-border pl-5 lg:pl-8">
           <a
             href={profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label={t("githubProfileAria", { name })}
+            className="w-fit rounded-full outline-none transition-opacity hover:opacity-75 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            {t("links.github")}
-            <ArrowUpRight aria-hidden="true" className="size-3.5" />
+            <Avatar className="size-20">
+              <AvatarImage src={profile?.avatar_url ?? ""} alt={name} />
+              <AvatarFallback>{name[0]}</AvatarFallback>
+            </Avatar>
           </a>
-        </div>
-      </aside>
+
+          <div className="flex flex-col items-start gap-3 text-sm">
+            <a
+              href="mailto:rubyceng0326@gmail.com"
+              className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Mail aria-hidden="true" className="size-4" />
+              {t("links.email")}
+              <ArrowUpRight aria-hidden="true" className="size-3.5" />
+            </a>
+            <a
+              href={profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {t("links.github")}
+              <ArrowUpRight aria-hidden="true" className="size-3.5" />
+            </a>
+          </div>
+        </aside>
+      </Reveal>
     </header>
   );
 }

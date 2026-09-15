@@ -1,3 +1,4 @@
+import { Reveal } from "@/app/components/reveal";
 import type { AppLocale } from "@/i18n/routing";
 import { fetchGitHubUser } from "@/lib/github";
 import { createPageMetadata } from "@/lib/seo";
@@ -41,11 +42,17 @@ export default async function Page() {
       {/* 暂时隐藏
       <SelectedWork /> */}
 
-      <TechStack />
+      <Reveal inView>
+        <TechStack />
+      </Reveal>
 
-      <CareerLine />
+      <Reveal inView>
+        <CareerLine />
+      </Reveal>
 
-      <ContributionsCalendar />
+      <Reveal inView>
+        <ContributionsCalendar />
+      </Reveal>
     </section>
   );
 }
