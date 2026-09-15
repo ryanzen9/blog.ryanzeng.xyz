@@ -1,4 +1,5 @@
 import { BlogPosts } from "@/app/components/posts";
+import { Reveal } from "@/app/components/reveal";
 import type { AppLocale } from "@/i18n/routing";
 import { createPageMetadata } from "@/lib/seo";
 import { Metadata } from "next";
@@ -22,12 +23,16 @@ export default async function Page() {
   return (
     <section className="flex flex-col gap-12">
       <header className="grid gap-5 lg:grid-cols-12 lg:items-end">
-        <h1 className="text-5xl font-semibold tracking-[-0.045em] sm:text-7xl lg:col-span-7">
-          {t("title")}
-        </h1>
-        <p className="max-w-md text-base leading-7 text-muted-foreground lg:col-span-5">
-          {t("description")}
-        </p>
+        <Reveal preset="hero" className="lg:col-span-7">
+          <h1 className="text-5xl font-semibold tracking-[-0.045em] sm:text-7xl">
+            {t("title")}
+          </h1>
+        </Reveal>
+        <Reveal preset="hero" delay={0.08} className="lg:col-span-5">
+          <p className="max-w-md text-base leading-7 text-muted-foreground">
+            {t("description")}
+          </p>
+        </Reveal>
       </header>
       <BlogPosts />
     </section>
