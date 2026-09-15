@@ -45,7 +45,6 @@ export function Reveal({
       delay={delay}
       direction="up"
       inView={inView}
-      initial="hidden"
     >
       {children}
     </BlurFade>

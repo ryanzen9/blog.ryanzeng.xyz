@@ -145,9 +145,11 @@ export default async function Blog({ params }) {
       </Reveal>
       <TocSidebar items={toc} />
 
-      <article className="prose" lang={blogLang}>
-        {content}
-      </article>
+      <Reveal delay={0.12}>
+        <article className="prose" lang={blogLang}>
+          {content}
+        </article>
+      </Reveal>
     </section>
   );
 }

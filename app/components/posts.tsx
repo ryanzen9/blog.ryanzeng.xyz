@@ -3,9 +3,9 @@ import {
   parsePublishedAt,
   publishedDateFormat,
 } from "@/app/[locale]/blog/utils";
+import { Reveal } from "@/app/components/reveal";
 import { Link } from "@/i18n/navigation";
 import { getFormatter } from "next-intl/server";
-import { Reveal } from "./reveal";
 
 export async function BlogPosts() {
   const format = await getFormatter();
