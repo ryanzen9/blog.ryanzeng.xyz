@@ -1,6 +1,10 @@
 "use client";
 
 import type { TocItem } from "@/app/[locale]/blog/toc";
+import {
+  READING_PROGRESS_PAUSE_EVENT,
+  READING_PROGRESS_RESUME_EVENT,
+} from "@/app/components/reading-progress-events";
 import LineSidebar, { type LineSidebarItem } from "@/components/LineSidebar";
 import { cn } from "@/lib/utils";
 import {
@@ -114,14 +118,22 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
     [items],
   );
 
-  const cancelScrollAnimation = useCallback(() => {
+  const cancelScrollAnimation = useCallback((resumeProgress = true) => {
     if (scrollAnimationRef.current !== null) {
       window.cancelAnimationFrame(scrollAnimationRef.current);
       scrollAnimationRef.current = null;
+
+      if (resumeProgress) {
+        window.dispatchEvent(new Event(READING_PROGRESS_RESUME_EVENT));
+      }
     }
   }, []);
 
   useEffect(() => {
+    const cancelOnPointerNavigation = () => {
+      cancelScrollAnimation();
+    };
+
     const cancelOnKeyboardNavigation = (event: KeyboardEvent) => {
       if (
         ["ArrowDown", "ArrowUp", "End", "Home", "PageDown", "PageUp"].includes(
@@ -132,16 +144,18 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
       }
     };
 
-    window.addEventListener("wheel", cancelScrollAnimation, { passive: true });
-    window.addEventListener("touchstart", cancelScrollAnimation, {
+    window.addEventListener("wheel", cancelOnPointerNavigation, {
+      passive: true,
+    });
+    window.addEventListener("touchstart", cancelOnPointerNavigation, {
       passive: true,
     });
     window.addEventListener("keydown", cancelOnKeyboardNavigation);
 
     return () => {
       cancelScrollAnimation();
-      window.removeEventListener("wheel", cancelScrollAnimation);
-      window.removeEventListener("touchstart", cancelScrollAnimation);
+      window.removeEventListener("wheel", cancelOnPointerNavigation);
+      window.removeEventListener("touchstart", cancelOnPointerNavigation);
       window.removeEventListener("keydown", cancelOnKeyboardNavigation);
     };
   }, [cancelScrollAnimation]);
@@ -171,7 +185,7 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
         return;
       }
 
-      cancelScrollAnimation();
+      cancelScrollAnimation(false);
       setActiveIndex(index);
 
       const startY = window.scrollY;
@@ -185,9 +199,14 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
       const distance = targetY - startY;
 
       window.history.pushState(null, "", item.href);
+      window.dispatchEvent(new Event(READING_PROGRESS_PAUSE_EVENT));
 
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (
+        Math.abs(distance) < 1 ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
         window.scrollTo(0, targetY);
+        window.dispatchEvent(new Event(READING_PROGRESS_RESUME_EVENT));
         return;
       }
 
@@ -207,6 +226,7 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
             window.requestAnimationFrame(runScrollAnimation);
         } else {
           scrollAnimationRef.current = null;
+          window.dispatchEvent(new Event(READING_PROGRESS_RESUME_EVENT));
         }
       };
 
