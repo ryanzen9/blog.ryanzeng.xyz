@@ -136,7 +136,7 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
 
     const cancelOnKeyboardNavigation = (event: KeyboardEvent) => {
       if (
-        ["ArrowDown", "ArrowUp", "End", "Home", "PageDown", "PageUp"].includes(
+[" ", "ArrowDown", "ArrowUp", "End", "Home", "PageDown", "PageUp"].includes(
           event.key,
         )
       ) {
