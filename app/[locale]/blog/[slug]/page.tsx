@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const { slug, locale } = await params;
+  const { slug } = await params;
   const path = `/${blogLang}/blog/${slug}`;
   let post = getBlogPosts().find((post) => post.slug === slug);
   const canonicalUrl = getAbsoluteUrl(path);
@@ -92,10 +92,7 @@ export default async function Blog({ params }) {
     : `${siteUrl}/og?title=${encodeURIComponent(post.metadata.title)}`;
 
   return (
-    <section
-      id="article-reading-region"
-      className="relative mx-auto max-w-3xl"
-    >
+    <section id="article-reading-region" className="relative mx-auto max-w-3xl">
       <ReadingProgress targetId="article-reading-region" />
       <script
         type="application/ld+json"

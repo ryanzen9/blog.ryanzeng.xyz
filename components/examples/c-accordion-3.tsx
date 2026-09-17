@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/components/ui/accordion";
 
 const items = [
   {
@@ -35,7 +35,7 @@ const items = [
       </>
     ),
   },
-]
+];
 
 export function Pattern() {
   return (
@@ -61,5 +61,5 @@ export function Pattern() {
         ))}
       </Accordion>
     </div>
-  )
+  );
 }

@@ -24,11 +24,7 @@ export async function BlogPosts() {
     <ol className="divide-y divide-border border-b border-border">
       {allBlogs.map((post, index) => (
         <li key={post.slug}>
-          <Reveal
-            inView
-            preset="row"
-            delay={Math.min(index * 0.05, 0.2)}
-          >
+          <Reveal inView preset="row" delay={Math.min(index * 0.05, 0.2)}>
             <Link
               className="group grid gap-3 py-6 outline-none transition-opacity hover:opacity-60 focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-12 sm:items-baseline sm:gap-6"
               href={`/blog/${post.slug}`}

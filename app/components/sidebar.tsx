@@ -69,8 +69,7 @@ function useActiveHeading(items: TocItem[]) {
 
       const scrollRange =
         document.documentElement.scrollHeight - window.innerHeight;
-      const isAtPageEnd =
-        scrollRange > 0 && window.scrollY >= scrollRange - 2;
+      const isAtPageEnd = scrollRange > 0 && window.scrollY >= scrollRange - 2;
 
       if (isAtPageEnd) {
         nextIndex = headings.at(-1)?.index ?? nextIndex;
@@ -136,9 +135,15 @@ export function TocSidebar({ items }: { items: TocItem[] }) {
 
     const cancelOnKeyboardNavigation = (event: KeyboardEvent) => {
       if (
-[" ", "ArrowDown", "ArrowUp", "End", "Home", "PageDown", "PageUp"].includes(
-          event.key,
-        )
+        [
+          " ",
+          "ArrowDown",
+          "ArrowUp",
+          "End",
+          "Home",
+          "PageDown",
+          "PageUp",
+        ].includes(event.key)
       ) {
         cancelScrollAnimation();
       }

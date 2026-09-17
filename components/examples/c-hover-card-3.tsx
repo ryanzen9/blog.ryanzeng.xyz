@@ -1,16 +1,10 @@
-import { CalendarDays } from "lucide-react"
-
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import { CalendarIcon } from "lucide-react"
+} from "@/components/ui/hover-card";
+import { CalendarIcon } from "lucide-react";
 
 export function Pattern() {
   return (
@@ -65,5 +59,5 @@ export function Pattern() {
         </HoverCardContent>
       </HoverCard>
     </div>
-  )
+  );
 }

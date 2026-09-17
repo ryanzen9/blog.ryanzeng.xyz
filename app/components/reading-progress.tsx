@@ -100,10 +100,7 @@ export function ReadingProgress({ targetId }: ReadingProgressProps) {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
       window.removeEventListener(READING_PROGRESS_PAUSE_EVENT, pauseProgress);
-      window.removeEventListener(
-        READING_PROGRESS_RESUME_EVENT,
-        resumeProgress,
-      );
+      window.removeEventListener(READING_PROGRESS_RESUME_EVENT, resumeProgress);
       resizeObserver.disconnect();
 
       if (animationFrame.current !== null) {
@@ -128,9 +125,7 @@ export function ReadingProgress({ targetId }: ReadingProgressProps) {
         <ProgressPrimitive.Indicator
           className={cn(
             "h-full bg-primary transition-[width] motion-reduce:transition-none",
-            isSettling
-              ? "duration-300 ease-out"
-              : "duration-100 ease-out",
+            isSettling ? "duration-300 ease-out" : "duration-100 ease-out",
           )}
         />
       </ProgressPrimitive.Track>

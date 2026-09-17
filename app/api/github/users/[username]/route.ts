@@ -1,7 +1,4 @@
-import {
-  fetchGitHubUser,
-  githubErrorResponse,
-} from "@/lib/github";
+import { fetchGitHubUser, githubErrorResponse } from "@/lib/github";
 
 type RouteContext = {
   params: Promise<{

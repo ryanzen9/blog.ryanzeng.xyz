@@ -45,11 +45,7 @@ export function ProfileHero({ profile }: { profile: GitHubUser | null }) {
         </div>
       </Reveal>
 
-      <Reveal
-        preset="hero"
-        delay={0.1}
-        className="self-start lg:col-span-4"
-      >
+      <Reveal preset="hero" delay={0.1} className="self-start lg:col-span-4">
         <aside className="flex flex-col gap-6 border-l border-border pl-5 lg:pl-8">
           <a
             href={profileUrl}

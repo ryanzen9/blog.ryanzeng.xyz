@@ -1,7 +1,7 @@
 import { Reveal } from "@/app/components/reveal";
 import type { AppLocale } from "@/i18n/routing";
 import { createPageMetadata } from "@/lib/seo";
-import { BlogPosts } from "app/components/posts";
+import { BlogPosts } from "@/app/components/posts";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { locale } from "next/root-params";

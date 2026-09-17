@@ -7,7 +7,7 @@ import {
   TimelineItem,
   TimelineSeparator,
   TimelineTitle,
-} from "@/components/reui/timeline"
+} from "@/components/reui/timeline";
 
 const roadmap = [
   {
@@ -38,7 +38,7 @@ const roadmap = [
     description:
       "Role-based access control, SOC2 compliance audit, and enhanced data encryption protocols.",
   },
-]
+];
 
 export function Pattern() {
   return (
@@ -61,5 +61,5 @@ export function Pattern() {
         </TimelineItem>
       ))}
     </Timeline>
-  )
+  );
 }
