@@ -78,7 +78,7 @@ export default async function RootLayout({
         <body className="min-h-screen bg-background text-foreground antialiased">
           <ThemeProvider
             attribute={["class", "data-theme"]}
-            defaultTheme="light"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
