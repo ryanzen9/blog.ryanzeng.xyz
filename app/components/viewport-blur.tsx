@@ -36,10 +36,16 @@ export function ViewportBlur() {
       const remaining =
         document.documentElement.scrollHeight - innerHeight - scrollY;
       if (topRef.current) {
-        topRef.current.style.opacity = String(fadeOpacity(scrollY));
+        topRef.current.style.setProperty(
+          "--edge-blur-progress",
+          String(fadeOpacity(scrollY)),
+        );
       }
       if (bottomRef.current) {
-        bottomRef.current.style.opacity = String(fadeOpacity(remaining));
+        bottomRef.current.style.setProperty(
+          "--edge-blur-progress",
+          String(fadeOpacity(remaining)),
+        );
       }
     };
     const scheduleUpdate = () => {
@@ -69,7 +75,7 @@ export function ViewportBlur() {
         >
           {blurLayers.map(({ strength, stops }, index) => {
             const mask = `linear-gradient(to ${edge}, ${stops})`;
-            const blur = `blur(calc(var(--edge-blur-strength) * ${strength}))`;
+            const blur = `blur(calc(var(--edge-blur-strength) * var(--edge-blur-progress) * ${strength}))`;
             return (
               <span
                 key={index}

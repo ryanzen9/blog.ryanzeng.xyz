@@ -153,12 +153,12 @@
   pointer-events: none;
 }
 .viewport-blur {
+  --edge-blur-progress: 0;
   position: fixed;
   inset-inline: 0;
   z-index: 20;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--duration-edge-blur) var(--ease-standard);
+  transition: opacity var(--duration-normal) var(--ease-standard);
 }
 .viewport-blur-top {
   top: 0;
@@ -173,11 +173,16 @@
 .viewport-blur > span {
   position: absolute;
   inset: 0;
+  transition:
+    backdrop-filter var(--duration-edge-blur) var(--ease-standard),
+    -webkit-backdrop-filter var(--duration-edge-blur) var(--ease-standard);
 }
 .viewport-blur::after {
   content: "";
   position: absolute;
   inset: 0;
+  opacity: var(--edge-blur-progress);
+  transition: opacity var(--duration-edge-blur) var(--ease-standard);
   background: linear-gradient(
     var(--edge-direction),
     transparent 45%,
