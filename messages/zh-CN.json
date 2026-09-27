@@ -4,7 +4,7 @@
         "description": "一个关于技术、编程和生活的个人博客。"
     },
     "home": {
-        "title": "May Rain",
+        "title": "认真构建，\n如实记录。",
         "eyebrow": "Ryan Zeng 的个人博客",
         "introduction": "我是一名来自中国的软件工程师，构建并运维从界面到基础设施的完整产品。",
         "currentFocus": "目前专注于把 AI Agent 带进真实工作流，同时持续参与开源项目。",
@@ -15,6 +15,13 @@
         "metadata": {
             "title": "主页",
             "description": "欢迎来到我的个人博客，在这里我分享我对技术、编程和生活的思考."
+        },
+        "readNotes": "阅读实践笔记",
+        "allWriting": "全部文章",
+        "about": "更多关于我",
+        "practice": {
+            "title": "从界面到基础设施",
+            "description": "这里记录开发中的具体问题、工具选择和解决过程。把实践整理成文字，也让下一次构建有迹可循。"
         }
     },
     "profile": {
@@ -83,34 +90,16 @@
             "title": "GitHub 贡献",
             "description": "过去一年我的 GitHub 贡献记录。你也可以查看我的 <profile>GitHub 主页</profile>了解更多。",
             "calendar": {
-                "error": "无法加载 GitHub 贡献记录。",
+                "error": "暂时无法加载贡献记录，请通过上方 GitHub 主页链接查看。",
                 "months": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
                 "weekdays": ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
-                "totalCount": "{{year}} 年共有 {{count}} 次贡献",
+                "totalCount": "过去一年共 {{count}} 次贡献",
                 "legend": {
                     "less": "少",
                     "more": "多"
                 }
-            }
-        },
-        "selectedWork": {
-            "title": "代表项目",
-            "description": "代表性项目及详细案例正在整理中。",
-            "comingSoon": "即将推出",
-            "items": {
-                "manufacturingErp": {
-                    "category": "内部系统",
-                    "title": "制造业 ERP"
-                },
-                "ecommerce": {
-                    "category": "产品工程",
-                    "title": "消费者电商应用"
-                },
-                "aiAgent": {
-                    "category": "当前方向",
-                    "title": "AI Agent 实验"
-                }
-            }
+            },
+            "caption": "来源：GitHub · @ryanzen9 · 窄屏可横向滚动查看完整记录。"
         }
     },
     "blog": {
@@ -120,7 +109,8 @@
         "metadata": {
             "title": "博文",
             "description": "阅读我关于技术、编程和生活的最新博客文章。"
-        }
+        },
+        "eyebrow": "May Rain / 实践笔记"
     },
     "navigation": {
         "label": "主要导航",
@@ -138,6 +128,21 @@
     "accessibility": {
         "rss": "RSS 订阅",
         "github": "GitHub 主页",
-        "x": "分享至X"
+        "x": "分享至X",
+        "skipToContent": "跳转到正文",
+        "lightTheme": "切换到浅色主题",
+        "darkTheme": "切换到深色主题",
+        "share": "分享"
+    },
+    "contact": {
+        "title": "继续交流",
+        "description": "如果某篇笔记对你有帮助，或者你正在解决类似的问题，欢迎写信聊聊。",
+        "email": "写封邮件",
+        "rss": "通过 RSS 订阅"
+    },
+    "notFound": {
+        "title": "找不到这个页面",
+        "description": "这个地址可能已变更，你可以回到首页继续阅读。",
+        "home": "返回首页"
     }
 }

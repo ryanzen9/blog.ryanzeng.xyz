@@ -1,35 +1,32 @@
 "use client";
-import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+
+import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-
-const themeButtonClassName = cn(
-  buttonVariants({ variant: "ghost", size: "icon-sm" }),
-);
 
 export function ThemeToggleButton() {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
-
+  const t = useTranslations("accessibility");
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  if (!mounted) {
-    return <span aria-hidden="true" className={themeButtonClassName} />;
-  }
-
-  const isDark = resolvedTheme === "dark";
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
-    <AnimatedThemeToggler
-      theme={isDark ? "dark" : "light"}
-      onThemeChange={setTheme}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
-      title={`Switch to ${isDark ? "light" : "dark"} theme`}
-      className={themeButtonClassName}
-    />
+    <Button
+      variant="ghost"
+      size="icon"
+      className="size-11"
+      type="button"
+      disabled={!mounted}
+      aria-label={t(isDark ? "lightTheme" : "darkTheme")}
+      title={t(isDark ? "lightTheme" : "darkTheme")}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+    >
+      {isDark ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+    </Button>
   );
 }

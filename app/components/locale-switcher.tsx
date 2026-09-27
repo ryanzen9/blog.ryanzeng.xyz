@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 import { AppLocale } from "@/i18n/routing";
-import { Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 
@@ -26,7 +26,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
   }
   return (
     <Button
-      className={className}
+      className={cn("min-h-11 min-w-11", className)}
       type="button"
       variant="ghost"
       size="sm"
@@ -36,7 +36,6 @@ export function LocaleSwitcher({ className }: { className?: string }) {
       title={t("label")}
       onClick={handleLocaleChange}
     >
-      <Languages data-icon="inline-start" aria-hidden="true" />
       <span lang={nextLocale}>{t("shortLabel")}</span>
     </Button>
   );

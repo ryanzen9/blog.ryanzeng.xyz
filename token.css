@@ -1,0 +1,432 @@
+:root {
+  color-scheme: light;
+
+  /* -------------------------------------------------
+   * Color — neutral first
+   * ------------------------------------------------- */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-neutral-25: #fcfcfb;
+  --color-neutral-50: #f7f7f5;
+  --color-neutral-100: #f2f2ef;
+  --color-neutral-200: #e8e8e4;
+  --color-neutral-300: #d4d4cf;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #717171;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #3f3f3f;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  --color-bg: var(--color-white);
+  --color-bg-subtle: var(--color-neutral-50);
+  --color-bg-muted: var(--color-neutral-100);
+
+  --color-surface: var(--color-white);
+  --color-surface-hover: var(--color-neutral-50);
+  --color-surface-active: var(--color-neutral-100);
+
+  --color-text: var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-700);
+  --color-text-muted: var(--color-neutral-500);
+  --color-text-tertiary: var(--color-neutral-400);
+  --color-text-inverse: var(--color-white);
+
+  --color-border-subtle: rgba(23, 23, 23, 0.08);
+  --color-border: rgba(23, 23, 23, 0.14);
+  --color-border-strong: rgba(23, 23, 23, 0.22);
+
+  --color-action: var(--color-neutral-900);
+  --color-action-hover: var(--color-black);
+  --color-action-fg: var(--color-white);
+
+  --color-link: var(--color-text);
+  --color-link-hover: var(--color-black);
+  --color-focus-ring: rgba(23, 23, 23, 0.34);
+  --color-selection-bg: var(--color-neutral-900);
+  --color-selection-fg: var(--color-white);
+
+  /* -------------------------------------------------
+   * Typography
+   * ------------------------------------------------- */
+  --font-sans:
+    Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial,
+    sans-serif;
+
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  --font-size-xs: 0.75rem; /* 12 */
+  --font-size-sm: 0.75rem; /* 12 */
+  --font-size-base: 0.875rem; /* 14 */
+  --font-size-md: 0.875rem; /* 14 */
+  --font-size-lg: 0.875rem; /* 14 */
+  --font-size-xl: 0.9375rem; /* 15 */
+  --font-size-2xl: 1rem; /* 16 */
+  --font-size-3xl: 1.125rem; /* 18 */
+  --font-size-4xl: 1.125rem; /* 18 */
+  --font-size-5xl: 1.375rem; /* 22 */
+  --font-size-6xl: 1.5rem; /* 24 */
+  --font-size-7xl: 1.75rem; /* 28 */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.08;
+  --line-height-heading: 1.2;
+  --line-height-title: 1.35;
+  --line-height-body: 1.75;
+  --line-height-small: 1.5;
+
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.02em;
+  --tracking-body: -0.005em;
+
+  /* -------------------------------------------------
+   * Spacing
+   * ------------------------------------------------- */
+  --space-0: 0;
+  --space-1: 0.25rem; /* 4 */
+  --space-2: 0.5rem; /* 8 */
+  --space-3: 0.75rem; /* 12 */
+  --space-4: 1rem; /* 16 */
+  --space-5: 1.25rem; /* 20 */
+  --space-6: 1.5rem; /* 24 */
+  --space-8: 2rem; /* 32 */
+  --space-10: 2.5rem; /* 40 */
+  --space-12: 3rem; /* 48 */
+  --space-14: 3.5rem; /* 56 */
+  --space-16: 4rem; /* 64 */
+  --space-20: 5rem; /* 80 */
+  --space-24: 6rem; /* 96 */
+  --space-28: 7rem; /* 112 */
+  --space-32: 8rem; /* 128 */
+  --space-36: 9rem; /* 144 */
+  --space-40: 10rem; /* 160 */
+
+  /* Semantic spacing */
+  --space-page-x: 2rem;
+  --space-section: 3.5rem;
+  --space-section-lg: 4rem;
+  --space-heading-body: 1rem;
+  --space-paragraph: 0.75rem;
+  --space-content-media: 1.25rem;
+  --space-entry: 1.5rem;
+  --space-media-padding: 1rem;
+
+  /* -------------------------------------------------
+   * Layout
+   * ------------------------------------------------- */
+  --layout-reading: 30rem; /* 480px */
+  --layout-content: 30rem; /* 480px */
+  --layout-wide: 40rem; /* 640px */
+  --layout-page: 50rem; /* 800px */
+  --layout-header-height: 4rem;
+
+  /* -------------------------------------------------
+   * Radius
+   * ------------------------------------------------- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.625rem;
+  --radius-2xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* -------------------------------------------------
+   * Shadow — intentionally restrained
+   * ------------------------------------------------- */
+  --shadow-none: none;
+  --shadow-float: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 30px rgba(0, 0, 0, 0.06);
+
+  /* -------------------------------------------------
+   * Motion
+   * ------------------------------------------------- */
+  --duration-fast: 120ms;
+  --duration-normal: 180ms;
+  --duration-slow: 240ms;
+  --duration-edge-blur: 360ms;
+  --duration-reveal: 420ms;
+  --reveal-distance: 4px;
+  --reveal-blur: 4px;
+  --edge-blur-top-height: 5rem;
+  --edge-blur-bottom-height: 10rem;
+  --edge-blur-strength: 24px;
+
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* -------------------------------------------------
+   * Controls
+   * ------------------------------------------------- */
+  --control-height-sm: 2rem;
+  --control-height-md: 2.5rem;
+  --control-height-lg: 2.75rem;
+
+  --button-padding-x: 1rem;
+  --button-radius: var(--radius-md);
+
+  /* -------------------------------------------------
+   * Media
+   * ------------------------------------------------- */
+  --media-radius: var(--radius-xl);
+  --media-border: 1px solid var(--color-border-subtle);
+}
+
+/* -------------------------------------------------
+ * Theme — dark
+ *
+ * Explicit theme: <html data-theme="dark">
+ * Explicit light: <html data-theme="light">
+ * No data-theme: follows prefers-color-scheme.
+ *
+ * Dark mode intentionally remains neutral and editorial:
+ * warm near-black canvas, soft off-white text, low-contrast
+ * borders, restrained surfaces, and no glow/gradients.
+ * ------------------------------------------------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: #0d0d0c;
+  --color-bg-subtle: #11110f;
+  --color-bg-muted: #171715;
+
+  --color-surface: #10100f;
+  --color-surface-hover: #171715;
+  --color-surface-active: #1d1d1a;
+
+  --color-text: #f4f4f2;
+  --color-text-secondary: #c7c7c2;
+  --color-text-muted: #8a8a84;
+  --color-text-tertiary: #66665f;
+  --color-text-inverse: #0d0d0c;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(255, 255, 255, 0.14);
+  --color-border-strong: rgba(255, 255, 255, 0.22);
+
+  --color-action: #f4f4f2;
+  --color-action-hover: #ffffff;
+  --color-action-fg: #0d0d0c;
+
+  --color-link: var(--color-text);
+  --color-link-hover: #ffffff;
+  --color-focus-ring: rgba(244, 244, 242, 0.38);
+  --color-selection-bg: #f4f4f2;
+  --color-selection-fg: #0d0d0c;
+
+  --shadow-float:
+    0 1px 2px rgba(0, 0, 0, 0.28), 0 10px 34px rgba(0, 0, 0, 0.34);
+}
+
+/* System dark mode only applies when the user has not
+ * explicitly selected light or dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+
+    --color-bg: #0d0d0c;
+    --color-bg-subtle: #11110f;
+    --color-bg-muted: #171715;
+
+    --color-surface: #10100f;
+    --color-surface-hover: #171715;
+    --color-surface-active: #1d1d1a;
+
+    --color-text: #f4f4f2;
+    --color-text-secondary: #c7c7c2;
+    --color-text-muted: #8a8a84;
+    --color-text-tertiary: #66665f;
+    --color-text-inverse: #0d0d0c;
+
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border: rgba(255, 255, 255, 0.14);
+    --color-border-strong: rgba(255, 255, 255, 0.22);
+
+    --color-action: #f4f4f2;
+    --color-action-hover: #ffffff;
+    --color-action-fg: #0d0d0c;
+
+    --color-link: var(--color-text);
+    --color-link-hover: #ffffff;
+    --color-focus-ring: rgba(244, 244, 242, 0.38);
+    --color-selection-bg: #f4f4f2;
+    --color-selection-fg: #0d0d0c;
+
+    --shadow-float:
+      0 1px 2px rgba(0, 0, 0, 0.28), 0 10px 34px rgba(0, 0, 0, 0.34);
+  }
+}
+
+@media (max-width: 960px) {
+  :root {
+    --space-page-x: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --space-page-x: 1.25rem;
+    --space-section: 3rem;
+    --space-section-lg: 3.5rem;
+    --layout-header-height: 4rem;
+    --edge-blur-top-height: 3.5rem;
+    --edge-blur-bottom-height: 7rem;
+    --font-size-7xl: 1.625rem; /* 26 */
+  }
+}
+
+/* ---------------------------------------------------
+ * Optional semantic primitives
+ * --------------------------------------------------- */
+
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-fg);
+}
+
+.ds-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+.ds-container {
+  width: min(calc(100% - (var(--space-page-x) * 2)), var(--layout-page));
+  margin-inline: auto;
+}
+
+.ds-reading {
+  width: min(100%, var(--layout-reading));
+  margin-inline: auto;
+}
+
+.ds-wide {
+  width: min(100%, var(--layout-wide));
+  margin-inline: auto;
+}
+
+.ds-section {
+  padding-block: var(--space-section);
+}
+
+.ds-display {
+  margin: 0;
+  font-size: var(--font-size-7xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--tracking-display);
+}
+
+.ds-h2 {
+  margin: 0;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--tracking-heading);
+}
+
+.ds-h3 {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-title);
+  letter-spacing: -0.015em;
+}
+
+.ds-body {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text-secondary);
+}
+
+.ds-muted {
+  color: var(--color-text-muted);
+}
+
+.ds-link {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-strong);
+  text-underline-offset: 0.1875rem;
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    text-decoration-color var(--duration-fast) var(--ease-standard);
+}
+
+.ds-link:hover {
+  color: var(--color-link-hover);
+  text-decoration-color: currentColor;
+}
+
+.ds-link:focus-visible,
+.ds-button-primary:focus-visible,
+.ds-button-secondary:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+.ds-media {
+  display: block;
+  width: 100%;
+  border: var(--media-border);
+  border-radius: var(--media-radius);
+  background: var(--color-bg-subtle);
+}
+
+.ds-button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--control-height-md);
+  padding-inline: var(--button-padding-x);
+  border: 1px solid var(--color-action);
+  border-radius: var(--button-radius);
+  background: var(--color-action);
+  color: var(--color-action-fg);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard),
+    transform var(--duration-normal) var(--ease-standard);
+}
+
+.ds-button-primary:hover {
+  background: var(--color-action-hover);
+  border-color: var(--color-action-hover);
+  transform: translateY(-1px);
+}
+
+.ds-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--control-height-md);
+  padding-inline: var(--button-padding-x);
+  border: 1px solid var(--color-border);
+  border-radius: var(--button-radius);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard);
+}
+
+.ds-button-secondary:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}

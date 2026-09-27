@@ -30,7 +30,7 @@
   border-radius: 2px;
   background-color: var(--border);
   content: "";
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all var(--duration-normal) var(--ease-standard);
 }
 
 .link::after {
@@ -48,7 +48,7 @@
   pointer-events: none;
   text-overflow: ellipsis;
   transform: translateY(-50%) translateX(-4px);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all var(--duration-normal) var(--ease-standard);
   white-space: nowrap;
 }
 

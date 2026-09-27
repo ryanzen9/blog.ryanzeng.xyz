@@ -12,19 +12,19 @@ export function Navbar() {
   const t = useTranslations("navigation");
 
   return (
-    <header className="border-b border-border/80">
+    <header>
       <nav
-        className="flex h-16 w-full items-center gap-4"
+        className="flex min-h-(--layout-header-height) w-full flex-wrap items-center gap-x-2 gap-y-1 py-4"
         aria-label={t("label")}
       >
         <Link
           href="/"
-          className="shrink-0 text-sm font-semibold tracking-tight outline-none transition-opacity hover:opacity-60 focus-visible:ring-2 focus-visible:ring-ring"
+          className="shrink-0 text-base font-semibold tracking-tight outline-none transition-opacity hover:opacity-60 focus-visible:ring-2 focus-visible:ring-ring"
         >
           May Rain
         </Link>
 
-        <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-4">
+        <div className="ml-auto flex min-w-0 items-center gap-0 sm:gap-4">
           <div className="flex min-w-0 items-center">
             {Object.entries(routes).map(([path, { name }]) => {
               const isActive =
@@ -38,7 +38,7 @@ export function Navbar() {
                   href={path}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "relative flex h-9 items-center px-2 text-sm text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring sm:px-3",
+                    "relative flex h-11 items-center px-2 text-sm text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring sm:px-3",
                     path === "/" && "hidden sm:flex",
                     isActive &&
                       "font-medium text-foreground after:absolute after:inset-x-2 after:bottom-0 after:h-px after:bg-foreground sm:after:inset-x-3",

@@ -17,7 +17,7 @@ import {
 } from "react";
 
 const SCROLL_OFFSET = 32;
-const SCROLL_DURATION = 1000;
+const SCROLL_DURATION = 200;
 
 function easeInOutQuart(progress: number) {
   return progress < 0.5
