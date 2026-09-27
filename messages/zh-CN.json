@@ -100,25 +100,6 @@
                 }
             },
             "caption": "来源：GitHub · @ryanzen9 · 窄屏可横向滚动查看完整记录。"
-        },
-        "selectedWork": {
-            "title": "代表项目",
-            "description": "代表性项目及详细案例正在整理中。",
-            "comingSoon": "即将推出",
-            "items": {
-                "manufacturingErp": {
-                    "category": "内部系统",
-                    "title": "制造业 ERP"
-                },
-                "ecommerce": {
-                    "category": "产品工程",
-                    "title": "消费者电商应用"
-                },
-                "aiAgent": {
-                    "category": "当前方向",
-                    "title": "AI Agent 实验"
-                }
-            }
         }
     },
     "blog": {

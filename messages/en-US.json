@@ -103,25 +103,6 @@
                 }
             },
             "caption": "Source: GitHub · @ryanzen9 · Scroll horizontally on smaller screens to see the full year."
-        },
-        "selectedWork": {
-            "title": "Selected Work",
-            "description": "Representative projects and detailed case studies are being prepared.",
-            "comingSoon": "Coming soon",
-            "items": {
-                "manufacturingErp": {
-                    "category": "Internal systems",
-                    "title": "Manufacturing ERP"
-                },
-                "ecommerce": {
-                    "category": "Product engineering",
-                    "title": "Consumer E-commerce"
-                },
-                "aiAgent": {
-                    "category": "Current focus",
-                    "title": "AI Agent Experiments"
-                }
-            }
         }
     },
     "blog": {
