@@ -3,57 +3,51 @@ import {
   parsePublishedAt,
   publishedDateFormat,
 } from "@/app/[locale]/blog/utils";
-import { Reveal } from "@/app/components/reveal";
 import { Link } from "@/i18n/navigation";
+import { blogLang } from "@/lib/site";
 import { getFormatter } from "next-intl/server";
 
 export async function BlogPosts() {
   const format = await getFormatter();
-
-  let allBlogs = getBlogPosts().sort((a, b) => {
-    if (
-      parsePublishedAt(a.metadata.publishedAt) >
-      parsePublishedAt(b.metadata.publishedAt)
-    ) {
-      return -1;
-    }
-    return 1;
-  });
+  const posts = getBlogPosts().sort(
+    (a, b) =>
+      parsePublishedAt(b.metadata.publishedAt).getTime() -
+      parsePublishedAt(a.metadata.publishedAt).getTime(),
+  );
 
   return (
-    <ol className="divide-y divide-border border-b border-border">
-      {allBlogs.map((post, index) => (
+    <ol className="flex flex-col gap-(--space-entry)">
+      {posts.map((post) => (
         <li key={post.slug}>
-          <Reveal inView preset="row" delay={Math.min(index * 0.05, 0.2)}>
-            <Link
-              className="group grid gap-3 py-6 outline-none transition-opacity hover:opacity-60 focus-visible:ring-2 focus-visible:ring-ring sm:grid-cols-12 sm:items-baseline sm:gap-6"
-              href={`/blog/${post.slug}`}
+          <Link
+            className="group flex flex-col items-start gap-3 py-2"
+            href={`/blog/${post.slug}`}
+          >
+            <time
+              dateTime={post.metadata.publishedAt}
+              className="editorial-meta font-mono tabular-nums"
             >
-              <time
-                dateTime={post.metadata.publishedAt}
-                className="font-mono text-xs tabular-nums text-muted-foreground sm:col-span-2"
-              >
-                {format.dateTime(
-                  parsePublishedAt(post.metadata.publishedAt),
-                  publishedDateFormat,
-                )}
-              </time>
-              <div className="flex flex-col gap-2 sm:col-span-9">
-                <h3 className="text-lg font-medium tracking-tight sm:text-xl">
-                  {post.metadata.title}
-                </h3>
-                <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-                  {post.metadata.summary}
-                </p>
-              </div>
+              {format.dateTime(
+                parsePublishedAt(post.metadata.publishedAt),
+                publishedDateFormat,
+              )}
+            </time>
+            <h3
+              lang={blogLang}
+              className="text-xl font-medium leading-snug tracking-tight decoration-border underline-offset-4 group-hover:underline sm:text-2xl"
+            >
+              {post.metadata.title}{" "}
               <span
                 aria-hidden="true"
-                className="hidden justify-self-end font-mono text-sm text-muted-foreground transition-transform group-hover:translate-x-1 sm:block"
+                className="inline-block text-base text-muted-foreground transition-transform group-hover:translate-x-1"
               >
-                {String(index + 1).padStart(2, "0")} ↗
+                ↗
               </span>
-            </Link>
-          </Reveal>
+            </h3>
+            <p lang={blogLang} className="editorial-body">
+              {post.metadata.summary}
+            </p>
+          </Link>
         </li>
       ))}
     </ol>

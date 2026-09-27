@@ -1,10 +1,7 @@
-import { Separator } from "@/components/ui/separator";
-import { devIcons, type DevIconPair } from "@/lib/icons";
 import { useTranslations } from "next-intl";
 
 type Technology = {
   name: string;
-  icons: DevIconPair;
 };
 
 type TechnologyGroup = {
@@ -16,89 +13,79 @@ const TECHNOLOGY_GROUPS: TechnologyGroup[] = [
   {
     key: "build",
     technologies: [
-      { name: "TypeScript", icons: devIcons.typescript },
-      { name: "Java", icons: devIcons.java },
-      { name: "Dart", icons: devIcons.dart },
-      { name: "React", icons: devIcons.react },
-      { name: "Vue", icons: devIcons.vue },
-      { name: "Next.js", icons: devIcons.nextjs },
-      { name: "Flutter", icons: devIcons.flutter },
-      { name: "Tailwind CSS", icons: devIcons.tailwind },
-      { name: "Vite", icons: devIcons.vite },
-      { name: "Node.js", icons: devIcons.nodejs },
-      { name: "NestJS", icons: devIcons.nestjs },
-      { name: "Hono", icons: devIcons.hono },
-      { name: "Spring Boot", icons: devIcons.springBoot },
+      { name: "TypeScript" },
+      { name: "Java" },
+      { name: "Dart" },
+      { name: "React" },
+      { name: "Vue" },
+      { name: "Next.js" },
+      { name: "Flutter" },
+      { name: "Tailwind CSS" },
+      { name: "Vite" },
+      { name: "Node.js" },
+      { name: "NestJS" },
+      { name: "Hono" },
+      { name: "Spring Boot" },
     ],
   },
   {
     key: "data",
     technologies: [
-      { name: "PostgreSQL", icons: devIcons.postgresql },
-      { name: "MySQL", icons: devIcons.mysql },
-      { name: "Redis", icons: devIcons.redis },
-      { name: "SQLite", icons: devIcons.sqlite },
-      { name: "Supabase", icons: devIcons.supabase },
-      { name: "Prisma", icons: devIcons.prisma },
-      { name: "Drizzle", icons: devIcons.drizzle },
-      { name: "EdgeDB", icons: devIcons.edgedb },
+      { name: "PostgreSQL" },
+      { name: "MySQL" },
+      { name: "Redis" },
+      { name: "SQLite" },
+      { name: "Supabase" },
+      { name: "Prisma" },
+      { name: "Drizzle" },
+      { name: "EdgeDB" },
     ],
   },
   {
     key: "tooling",
     technologies: [
-      { name: "Codex", icons: devIcons.openai },
-      { name: "Claude Code", icons: devIcons.claudeCode },
-      { name: "GitHub Copilot", icons: devIcons.githubCopilot },
-      { name: "Cursor", icons: devIcons.cursor },
-      { name: "Docker", icons: devIcons.docker },
-      { name: "Git", icons: devIcons.git },
-      { name: "GitHub Actions", icons: devIcons.githubActions },
-      { name: "Cloudflare", icons: devIcons.cloudflare },
-      { name: "Vercel", icons: devIcons.vercel },
-      { name: "Linux", icons: devIcons.linux },
+      { name: "Codex" },
+      { name: "Claude Code" },
+      { name: "GitHub Copilot" },
+      { name: "Cursor" },
+      { name: "Docker" },
+      { name: "Git" },
+      { name: "GitHub Actions" },
+      { name: "Cloudflare" },
+      { name: "Vercel" },
+      { name: "Linux" },
     ],
   },
 ];
 
-function TechnologyItem({ name, icons }: Technology) {
-  const MonoIcon = icons.mono;
-
-  return (
-    <li className="flex items-center gap-2 text-sm text-foreground/80">
-      <MonoIcon aria-hidden="true" size={14} />
-      <span>{name}</span>
-    </li>
-  );
+function TechnologyItem({ name }: Technology) {
+  return <li className="text-base leading-7 text-muted-foreground">{name}</li>;
 }
 
 export function TechStack() {
   const t = useTranslations("profile.techStack");
 
   return (
-    <section aria-labelledby="technology-stack-title">
-      <div className="mb-8 grid gap-3 sm:grid-cols-12 sm:items-end">
-        <h2
-          id="technology-stack-title"
-          className="text-2xl font-medium tracking-tight sm:col-span-7"
-        >
+    <section
+      aria-labelledby="technology-stack-title"
+      className="reading-column"
+    >
+      <div className="section-intro">
+        <h2 id="technology-stack-title" className="section-heading">
           {t("title")}
         </h2>
-        <p className="max-w-xl text-sm leading-6 text-muted-foreground sm:col-span-5">
-          {t("description")}
-        </p>
+        <p className="editorial-body">{t("description")}</p>
       </div>
 
-      <div className="flex flex-col">
-        {TECHNOLOGY_GROUPS.map((group, index) => (
+      <div className="flex flex-col gap-(--space-entry)">
+        {TECHNOLOGY_GROUPS.map((group) => (
           <div key={group.key}>
-            {index > 0 && <Separator />}
-            <div className="grid gap-4 py-6 sm:grid-cols-12 sm:gap-6">
-              <h3 className="text-sm font-medium text-muted-foreground sm:col-span-2">
+            <div className="flex flex-col gap-4">
+              <h3 className="text-xl font-medium">
                 {t(`groups.${group.key}.label`)}
               </h3>
               <ul
-                className="grid grid-cols-2 gap-x-6 gap-y-3 sm:col-span-10 sm:grid-cols-3 lg:grid-cols-4"
+                className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3"
                 aria-label={t(`groups.${group.key}.ariaLabel`)}
               >
                 {group.technologies.map((technology) => (

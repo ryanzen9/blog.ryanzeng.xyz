@@ -1,4 +1,6 @@
-import { Reveal } from "@/app/components/reveal";
+import { Contact } from "@/app/components/contact";
+import { Link } from "@/i18n/navigation";
+import { ContributionsCalendar } from "./profile/contributions-calendar";
 import type { AppLocale } from "@/i18n/routing";
 import { createPageMetadata } from "@/lib/seo";
 import { BlogPosts } from "@/app/components/posts";
@@ -23,51 +25,60 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const t = await getTranslations("home");
+  const profile = await getTranslations("profile.hero");
   return (
-    <div className="flex flex-col gap-20 sm:gap-28">
-      <section className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-        <Reveal preset="hero" className="lg:col-span-8">
-          <p className="mb-5 text-sm text-muted-foreground">{t("eyebrow")}</p>
-          <h1 className="max-w-4xl text-balance text-[clamp(3.75rem,10vw,8.5rem)] font-semibold leading-[0.86] tracking-[-0.075em]">
-            {t("title")}
-          </h1>
-        </Reveal>
-
-        <Reveal
-          preset="hero"
-          delay={0.1}
-          className="flex flex-col justify-end gap-5 border-l border-border pl-5 lg:col-span-4 lg:mb-1 lg:pl-7"
+    <div className="editorial-flow">
+      <header className="reading-column">
+        <p className="editorial-meta mb-6">{t("eyebrow")}</p>
+        <h1 className="editorial-heading whitespace-pre-line">{t("title")}</h1>
+        <div className="editorial-copy editorial-body mt-(--space-content-media)">
+          <p>{t("introduction")}</p>
+          <p>{t("currentFocus")}</p>
+        </div>
+        <a
+          href="#latest-writing"
+          className="text-link mt-(--space-content-media) inline-flex items-center gap-3 py-2 text-sm"
         >
-          <p className="max-w-[36ch] text-lg leading-7 tracking-tight">
-            {t("introduction")}
-          </p>
-          <div className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
-            <span
-              aria-hidden="true"
-              className="mt-2 size-1.5 shrink-0 rounded-full bg-signal"
-            />
-            <p>{t("currentFocus")}</p>
-          </div>
-        </Reveal>
-      </section>
+          {t("readNotes")} <span aria-hidden="true">↓</span>
+        </a>
+      </header>
 
-      <section aria-labelledby="latest-writing-title">
-        <Reveal
-          inView
-          className="mb-8 grid gap-3 border-b border-border pb-5 sm:grid-cols-12 sm:items-end"
-        >
-          <h2
-            id="latest-writing-title"
-            className="text-2xl font-medium tracking-tight sm:col-span-7"
-          >
+      <section
+        id="latest-writing"
+        aria-labelledby="latest-writing-title"
+        className="reading-column scroll-mt-(--space-content-media)"
+      >
+        <div className="section-intro">
+          <h2 id="latest-writing-title" className="section-heading">
             {t("latest.title")}
           </h2>
-          <p className="max-w-md text-sm leading-6 text-muted-foreground sm:col-span-5">
-            {t("latest.description")}
-          </p>
-        </Reveal>
+          <p className="editorial-body">{t("latest.description")}</p>
+        </div>
         <BlogPosts />
+        <Link
+          href="/blog"
+          className="text-link mt-10 inline-block py-2 text-sm"
+        >
+          {t("allWriting")} <span aria-hidden="true">→</span>
+        </Link>
       </section>
+
+      <section aria-labelledby="practice-title" className="reading-column">
+        <div className="section-intro">
+          <h2 id="practice-title" className="section-heading">
+            {t("practice.title")}
+          </h2>
+          <div className="editorial-copy editorial-body">
+            <p>{profile("introduction.primary")}</p>
+            <p>{t("practice.description")}</p>
+          </div>
+        </div>
+        <Link href="/profile" className="text-link inline-block py-2 text-sm">
+          {t("about")} <span aria-hidden="true">→</span>
+        </Link>
+      </section>
+      <ContributionsCalendar />
+      <Contact />
     </div>
   );
 }

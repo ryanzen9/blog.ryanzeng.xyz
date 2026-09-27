@@ -7,7 +7,7 @@
         "title": "May Rain"
     },
     "home": {
-        "title": "May Rain",
+        "title": "Building things.\nKeeping notes.",
         "eyebrow": "The personal site of Ryan Zeng",
         "introduction": "I am a software engineer in China, building and operating products from interface to infrastructure.",
         "currentFocus": "Currently bringing AI agents into practical workflows and contributing more actively to open source.",
@@ -18,6 +18,13 @@
         "metadata": {
             "title": "Home Page",
             "description": "Welcome to my personal blog, where I share my thoughts on technology, programming, and life."
+        },
+        "readNotes": "Read the field notes",
+        "allWriting": "All writing",
+        "about": "More about me",
+        "practice": {
+            "title": "From interface to infrastructure",
+            "description": "This is where I document the problems, tools, and decisions behind that work. Writing them down gives the next build a place to start."
         }
     },
     "profile": {
@@ -86,15 +93,16 @@
             "title": "GitHub Contributions",
             "description": "My GitHub contributions over the last year. You can also check out my <profile>GitHub profile</profile> for more details.",
             "calendar": {
-                "error": "Unable to load GitHub contributions.",
+                "error": "Contributions are unavailable. Visit the GitHub profile linked above to view them.",
                 "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-                "totalCount": "{{count}} contributions in {{year}}",
+                "totalCount": "{{count}} contributions in the last year",
                 "legend": {
                     "less": "Less",
                     "more": "More"
                 }
-            }
+            },
+            "caption": "Source: GitHub · @ryanzen9 · Scroll horizontally on smaller screens to see the full year."
         },
         "selectedWork": {
             "title": "Selected Work",
@@ -123,7 +131,8 @@
         "metadata": {
             "title": "Blog Page",
             "description": "Read my latest blog posts on technology, programming, and life."
-        }
+        },
+        "eyebrow": "May Rain / Field notes"
     },
     "navigation": {
         "label": "Primary navigation",
@@ -138,6 +147,21 @@
     "accessibility": {
         "rss": "RSS feed",
         "github": "GitHub profile",
-        "x": "Share on X"
+        "x": "Share on X",
+        "skipToContent": "Skip to content",
+        "lightTheme": "Switch to light theme",
+        "darkTheme": "Switch to dark theme",
+        "share": "Share"
+    },
+    "contact": {
+        "title": "Keep in touch",
+        "description": "If a note here was useful, or you are working through a similar problem, I would like to hear from you.",
+        "email": "Send an email",
+        "rss": "Follow via RSS"
+    },
+    "notFound": {
+        "title": "Page not found",
+        "description": "This address may have changed. Head back home to keep reading.",
+        "home": "Back to home"
     }
 }

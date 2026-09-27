@@ -1,5 +1,6 @@
-import { ThemeProvider } from "@/components/theme-provider";
+import { ViewportBlur } from "@/app/components/viewport-blur";
 import { Meteors } from "@/components/ui/meteors";
+import { ThemeProvider } from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
 import { codeFont, uiFont } from "@/lib/fonts";
 import { siteUrl } from "@/lib/site";
@@ -59,8 +60,13 @@ export function generateStaticParams() {
   return params;
 }
 
-export default async function RootLayout({ children }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const curLocale = await locale();
+  const t = await getTranslations("accessibility");
 
   return (
     <html
@@ -71,16 +77,22 @@ export default async function RootLayout({ children }) {
       <NextIntlClientProvider>
         <body className="min-h-screen bg-background text-foreground antialiased">
           <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
+            attribute={["class", "data-theme"]}
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
-            <Meteors number={30} />
+            <div className="site-meteors" aria-hidden="true">
+              <Meteors number={30} />
+            </div>
+            <ViewportBlur />
+            <a href="#main-content" className="skip-link">
+              {t("skipToContent")}
+            </a>
 
-            <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 sm:px-8">
+            <div className="site-shell">
               <Navbar />
-              <main className="min-w-0 flex-1 py-12 sm:py-16 lg:py-20">
+              <main id="main-content" tabIndex={-1} className="site-main">
                 {children}
               </main>
               <Footer />

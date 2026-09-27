@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     ],
     dangerouslyAllowLocalIP: true,
   },
+  allowedDevOrigins: ["127.0.0.1"],
 };
 
 const withNextIntl = createNextIntlPlugin();

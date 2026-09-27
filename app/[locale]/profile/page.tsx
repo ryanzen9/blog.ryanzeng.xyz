@@ -1,4 +1,4 @@
-import { Reveal } from "@/app/components/reveal";
+import { Contact } from "@/app/components/contact";
 import type { AppLocale } from "@/i18n/routing";
 import { fetchGitHubUser } from "@/lib/github";
 import { createPageMetadata } from "@/lib/seo";
@@ -36,23 +36,13 @@ export default async function Page() {
   const currentLocale = (await locale()) ?? "en-US";
 
   return (
-    <section lang={currentLocale} className="flex flex-col gap-16 sm:gap-24">
+    <section lang={currentLocale} className="editorial-flow">
       <ProfileHero profile={profile} />
 
-      {/* 暂时隐藏
-      <SelectedWork /> */}
-
-      <Reveal inView>
-        <TechStack />
-      </Reveal>
-
-      <Reveal inView>
-        <CareerLine />
-      </Reveal>
-
-      <Reveal inView>
-        <ContributionsCalendar />
-      </Reveal>
+      <CareerLine />
+      <ContributionsCalendar />
+      <TechStack />
+      <Contact />
     </section>
   );
 }

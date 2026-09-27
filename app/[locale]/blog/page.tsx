@@ -1,5 +1,4 @@
 import { BlogPosts } from "@/app/components/posts";
-import { Reveal } from "@/app/components/reveal";
 import type { AppLocale } from "@/i18n/routing";
 import { createPageMetadata } from "@/lib/seo";
 import { Metadata } from "next";
@@ -21,18 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   const t = await getTranslations("blog");
   return (
-    <section className="flex flex-col gap-12">
-      <header className="grid gap-5 lg:grid-cols-12 lg:items-end">
-        <Reveal preset="hero" className="lg:col-span-7">
-          <h1 className="text-5xl font-semibold tracking-[-0.045em] sm:text-7xl">
-            {t("title")}
-          </h1>
-        </Reveal>
-        <Reveal preset="hero" delay={0.08} className="lg:col-span-5">
-          <p className="max-w-md text-base leading-7 text-muted-foreground">
-            {t("description")}
-          </p>
-        </Reveal>
+    <section className="reading-column editorial-flow">
+      <header>
+        <p className="editorial-meta mb-6">{t("eyebrow")}</p>
+        <h1 className="editorial-heading">{t("title")}</h1>
+        <p className="editorial-body mt-(--space-content-media)">
+          {t("description")}
+        </p>
       </header>
       <BlogPosts />
     </section>

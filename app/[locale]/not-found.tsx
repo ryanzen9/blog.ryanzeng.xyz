@@ -1,19 +1,16 @@
-"use client";
-import FuzzyText from "@/components/FuzzyText";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function NotFound() {
+  const t = useTranslations("notFound");
   return (
-    <section className="flex flex-col items-center justify-center h-full text-center">
-      <FuzzyText
-        baseIntensity={0.2}
-        hoverIntensity={0.5}
-        enableHover
-        className="mb-8 text-2xl font-semibold tracking-tighter w-fit mx-auto"
-      >
-        404
-      </FuzzyText>
-
-      <p className="mb-4 font-mono">Page Not Found</p>
+    <section className="reading-column">
+      <p className="editorial-meta mb-6 font-mono">404</p>
+      <h1 className="editorial-heading">{t("title")}</h1>
+      <p className="editorial-body mt-8">{t("description")}</p>
+      <Link href="/" className="text-link mt-8 inline-block py-2">
+        {t("home")} <span aria-hidden="true">→</span>
+      </Link>
     </section>
   );
 }
