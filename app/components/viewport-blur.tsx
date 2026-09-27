@@ -3,6 +3,13 @@
 import { usePathname } from "@/i18n/navigation";
 import { useEffect, useRef } from "react";
 
+const FADE_DISTANCE = 320;
+
+function fadeOpacity(distance: number) {
+  const progress = Math.min(1, Math.max(0, distance / FADE_DISTANCE));
+  return progress * progress * (3 - 2 * progress);
+}
+
 // Each band overlaps its neighbours so the blur increases towards the edge.
 const blurLayers = Array.from({ length: 8 }, (_, index) => {
   const stops = [
@@ -29,14 +36,10 @@ export function ViewportBlur() {
       const remaining =
         document.documentElement.scrollHeight - innerHeight - scrollY;
       if (topRef.current) {
-        topRef.current.style.opacity = String(
-          Math.min(1, Math.max(0, scrollY / 80)),
-        );
+        topRef.current.style.opacity = String(fadeOpacity(scrollY));
       }
       if (bottomRef.current) {
-        bottomRef.current.style.opacity = String(
-          Math.min(1, Math.max(0, remaining / 80)),
-        );
+        bottomRef.current.style.opacity = String(fadeOpacity(remaining));
       }
     };
     const scheduleUpdate = () => {

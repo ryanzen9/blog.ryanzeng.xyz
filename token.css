@@ -150,6 +150,7 @@
   --duration-fast: 120ms;
   --duration-normal: 180ms;
   --duration-slow: 240ms;
+  --duration-edge-blur: 360ms;
   --duration-reveal: 420ms;
   --reveal-distance: 4px;
   --reveal-blur: 4px;
