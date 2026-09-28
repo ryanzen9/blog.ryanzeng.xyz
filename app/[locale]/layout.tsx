@@ -1,7 +1,7 @@
-import { ViewportBlur } from "@/app/components/viewport-blur";
 import { BrowserChromeTheme } from "@/app/components/browser-chrome-theme";
-import { Meteors } from "@/components/ui/meteors";
+import { ViewportBlur } from "@/app/components/viewport-blur";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Meteors } from "@/components/ui/meteors";
 import { routing } from "@/i18n/routing";
 import { codeFont, uiFont } from "@/lib/fonts";
 import { siteUrl } from "@/lib/site";
@@ -95,7 +95,7 @@ export default async function RootLayout({
           >
             <BrowserChromeTheme />
             <div className="site-meteors" aria-hidden="true">
-              <Meteors number={30} />
+              <Meteors />
             </div>
             <ViewportBlur />
             <a href="#main-content" className="skip-link">
