@@ -124,9 +124,11 @@
   }
   html {
     font-family: var(--font-editorial);
+    background: var(--background);
   }
   body {
     @apply bg-background text-foreground antialiased;
+    position: relative;
     text-rendering: optimizeLegibility;
     font-size: var(--font-size-base);
   }
@@ -146,11 +148,14 @@
 }
 
 .site-meteors {
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: min(65svh, 36rem);
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
 }
 .viewport-blur {
   --edge-blur-progress: 0;
@@ -162,12 +167,12 @@
 }
 .viewport-blur-top {
   top: 0;
-  height: var(--edge-blur-top-height);
+  height: calc(var(--edge-blur-top-height) + var(--safe-top));
   --edge-direction: to top;
 }
 .viewport-blur-bottom {
   bottom: 0;
-  height: var(--edge-blur-bottom-height);
+  height: calc(var(--edge-blur-bottom-height) + var(--safe-bottom));
   --edge-direction: to bottom;
 }
 .viewport-blur > span {
@@ -225,9 +230,18 @@ html:has(:focus-visible) .viewport-blur {
 .site-shell {
   position: relative;
   z-index: 1;
-  width: min(calc(100% - var(--space-page-x) * 2), var(--layout-content));
+  width: min(
+    100%,
+    calc(
+      var(--layout-content) + var(--space-page-x) * 2 + var(--safe-left) +
+        var(--safe-right)
+    )
+  );
   margin-inline: auto;
-  min-height: 100svh;
+  min-height: 100dvh;
+  padding-block: var(--safe-top) var(--safe-bottom);
+  padding-inline: calc(var(--space-page-x) + var(--safe-left))
+    calc(var(--space-page-x) + var(--safe-right));
   display: flex;
   flex-direction: column;
 }
@@ -298,8 +312,8 @@ html:has(:focus-visible) .viewport-blur {
 }
 .skip-link {
   position: absolute;
-  top: 12px;
-  left: 20px;
+  top: calc(12px + var(--safe-top));
+  left: calc(20px + var(--safe-left));
   z-index: 100;
   padding: 12px 20px;
   background: var(--background);
@@ -417,7 +431,10 @@ html:has(:focus-visible) .viewport-blur {
   color: var(--color-text-muted);
 }
 .prose .media-wide {
-  width: min(var(--layout-wide), calc(100vw - 2 * var(--space-page-x)));
+  width: min(
+    var(--layout-wide),
+    calc(100vw - 2 * var(--space-page-x) - var(--safe-left) - var(--safe-right))
+  );
   max-width: none;
   margin-left: 50%;
   transform: translateX(-50%);
@@ -469,6 +486,9 @@ html:has(:focus-visible) .viewport-blur {
 }
 
 @media (max-width: 640px) {
+  .viewport-blur {
+    display: none;
+  }
   .prose .anchor {
     left: -0.65em;
   }

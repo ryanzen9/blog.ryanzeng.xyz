@@ -7,13 +7,19 @@ import { siteUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { locale } from "next/root-params";
 import Footer from "../components/footer";
 import { Navbar } from "../components/nav";
 import "../global.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const curLocale = await locale();
@@ -75,7 +81,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <NextIntlClientProvider>
-        <body className="min-h-screen bg-background text-foreground antialiased">
+        <body className="min-h-dvh bg-background text-foreground antialiased">
           <ThemeProvider
             attribute={["class", "data-theme"]}
             defaultTheme="system"

@@ -127,6 +127,11 @@
   --layout-page: 50rem; /* 800px */
   --layout-header-height: 4rem;
 
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
   /* -------------------------------------------------
    * Radius
    * ------------------------------------------------- */
@@ -291,7 +296,7 @@
 }
 
 .ds-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
